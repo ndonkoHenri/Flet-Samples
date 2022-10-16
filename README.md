@@ -1,2 +1,6 @@
 # Flet-Samples
- Showcasing applications made with the Flet python framework.
+
+ Showcasing applications I made with the Flet([website](https://flet.dev), [github](https://github.com/flet-dev/flet)) python framework.
+
+- Flet-Utils (Flutils)
+
