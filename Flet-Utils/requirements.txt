@@ -1,0 +1,2 @@
+flet>=0.1.62
+pyinstaller>=5.5
