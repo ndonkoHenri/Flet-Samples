@@ -9,7 +9,7 @@ This app will serve as an editor for your Markdown.
 - save your input as markdown file(*.md), or in any file format(ex: *.txt).
 
 ### Captures
-https://user-images.githubusercontent.com/98978078/197299408-cbe92110-61fc-4490-b421-4cbed9af0816.gif
+https://user-images.githubusercontent.com/98978078/197305750-5f922239-d5b2-4ee0-8b50-46e2ce55608f.mp4
 
 
 ### Tip
