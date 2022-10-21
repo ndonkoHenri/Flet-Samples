@@ -5,4 +5,6 @@ This tool is here to help shorten these URLs, making them more beautiful to see,
 
 ## Captures
 
-https://user-images.githubusercontent.com/98978078/196421820-1f45b35c-eeb2-4379-84d6-9b0509d0a8d2.gif
+https://user-images.githubusercontent.com/98978078/197305959-6dfad1c8-e6d8-4b71-9137-4975bbbc49f5.mp4
+
+
