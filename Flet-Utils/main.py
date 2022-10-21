@@ -1,8 +1,14 @@
 from flet import *
 from flet import icons, colors
-from utils import TabContentBorderRadius, TabContentPadding, TabContentIcons, TabContentColors1, \
-    TabContentColors2, TabContentAlignment, TabContentShape, TabContentBorder, TabContentLinearGradient, \
-    TabContentRadialGradient, TabContentSweepGradient
+from padding_utils import TabContentPadding
+from alignment_utils import TabContentAlignment
+from border_utils import TabContentBorder
+from border_radius_utils import TabContentBorderRadius
+from colors_utils import TabContentColors1, TabContentColors2
+from icons_utils import TabContentIcons
+from gradient_utils import TabContentLinearGradient, TabContentSweepGradient, TabContentRadialGradient
+from shadermask_utils import TabContentShaderMask
+from shape_utils import TabContentShape
 
 
 def main(page: Page):
@@ -29,7 +35,7 @@ def main(page: Page):
         page.theme_mode = "light" if page.theme_mode == "dark" else "dark"  # changes the page's theme_mode
         page.splash.visible = False
         theme_icon_button.selected = not theme_icon_button.selected  # changes the icon
-        time.sleep(0.3)  # shows the progress bar for a second indicating that work is being done..
+        time.sleep(0.2)  # shows the progress bar for a second indicating that work is being done..
         page.update()
 
     theme_icon_button = IconButton(
@@ -63,11 +69,12 @@ def main(page: Page):
     linear_gradient_content = TabContentLinearGradient()
     radial_gradient_content = TabContentRadialGradient()
     sweep_gradient_content = TabContentSweepGradient()
+    shader_mask_content = TabContentShaderMask()
 
     page.add(
         Tabs(
             expand=True,
-            selected_index=9,
+            selected_index=11,
             tabs=[
                 Tab(
                     text="BorderRadius",
@@ -113,8 +120,19 @@ def main(page: Page):
                     text="Sweep Gradient",
                     content=sweep_gradient_content
                 ),
+                Tab(
+                    text="Shader Mask",
+                    content=shader_mask_content
+                ),
             ]
         ),
+        Text(
+            "Made with ❤ by @ndonkoHenri aka TheEthicalBoy!",
+            style="labelSmall",
+            weight="bold",
+            italic=True,
+            color=colors.BLUE_900,
+        )
     )
 
 
