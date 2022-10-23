@@ -7,3 +7,5 @@
 - URL Shortener
 
 - Markdown Editor
+
+- QR Code Generator
