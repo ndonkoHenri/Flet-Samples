@@ -1,14 +1,16 @@
-from flet import *
-from flet import icons, colors
-from padding_utils import TabContentPadding
-from alignment_utils import TabContentAlignment
-from border_utils import TabContentBorder
-from border_radius_utils import TabContentBorderRadius
-from colors_utils import TabContentColors1, TabContentColors2
-from icons_utils import TabContentIcons
-from gradient_utils import TabContentLinearGradient, TabContentSweepGradient, TabContentRadialGradient
-from shadermask_utils import TabContentShaderMask
-from shape_utils import TabContentShape
+import time
+
+import flet
+from flet import icons, colors, Page, ProgressBar, IconButton, ButtonStyle, AppBar, Text, Tab, Tabs
+from utils.padding_utils import TabContentPadding
+from utils.alignment_utils import TabContentAlignment
+from utils.border_utils import TabContentBorder
+from utils.border_radius_utils import TabContentBorderRadius
+from utils.colors_utils import TabContentColors1, TabContentColors2
+from utils.icons_utils import TabContentIcons
+from utils.gradient_utils import TabContentLinearGradient, TabContentSweepGradient, TabContentRadialGradient
+from utils.shadermask_utils import TabContentShaderMask
+from utils.shape_utils import TabContentShape
 
 
 def main(page: Page):
