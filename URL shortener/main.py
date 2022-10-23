@@ -134,11 +134,11 @@ def main(page: Page):
             label="Long URL",
             hint_text="type long url here",
             max_length=200,
-            width=450,
+            width=800,
             keyboard_type="url",
             on_submit=shorten,
             suffix=FilledButton("Shorten!", on_click=shorten),
-            value='https://flet.dev'
+            value='https://github.com/ndonkoHenri/Flet-Samples/tree/master/URL%20shortener'
         ),
         Text("Generated URLs:", weight="bold", size=23, font_family="sf-bold")
     )
