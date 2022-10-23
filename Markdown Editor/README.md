@@ -3,6 +3,8 @@
 [Markdown](https://en.wikipedia.org/wiki/Markdown) is a lightweight markup language for creating formatted text using a plain-text editor.
 This app will serve as an editor for your Markdown.
 
+_**Here is the link to the online version still in development:**_ [md-editor.fly.dev](https://md-editor.fly.dev/)
+
 
 ### Features:
 - Preview markdown output in realtime
