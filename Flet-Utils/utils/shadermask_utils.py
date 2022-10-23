@@ -1,7 +1,10 @@
-from flet import (colors, icons, UserControl, SnackBar, Text, Row,
-                  FilledButton, TextField, Column,
-                  Ref, FilledTonalButton, LinearGradient, RadialGradient, SweepGradient, dropdown, Dropdown, ShaderMask,
-                  Image, alignment, Alignment, border_radius)
+# from flet import (colors, icons, UserControl, SnackBar, Text, Row, FilledButton, TextField, Column, Ref,
+# FilledTonalButton, LinearGradient, RadialGradient, SweepGradient, dropdown, Dropdown, ShaderMask, Image, alignment,
+# Alignment, border_radius)
+
+# import all the controls: if the shader mask requires controls which are not imported, an error is raised
+from flet import *
+from flet import colors, icons
 from flet.border_radius import BorderRadius
 from flet.control_event import ControlEvent
 
