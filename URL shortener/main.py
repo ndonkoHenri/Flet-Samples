@@ -9,7 +9,7 @@ shortener = pyshorteners.Shortener()
 
 
 class ShortLinkRow(Row):
-    # ta row containing the shortened url, and two buttons ('copy' button, and 'open in browser')
+    # a row containing the shortened url, and two buttons ('copy' button, and 'open in browser')
 
     def __init__(self, short_link, source):
         super().__init__()
@@ -50,11 +50,7 @@ def main(page: Page):
                   "sf-bold": "/fonts/San-Francisco/SFUIDisplay-Bold.ttf"}
 
     page.theme_mode = "light"
-    page.theme = Theme(
-        font_family="sf-simple",
-        # use_material3=True,
-        # visual_density="compact",
-    )
+    page.theme = Theme(font_family="sf-simple")
 
     # page.horizontal_alignment = "center"
     def change_theme(e):

@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0175C2",
-  "description": "Edit your Mardown text, have a live preview of the output, download and share.",
+  "description": "Edit your Markdown text, have a live preview of the output, download and share.",
   "orientation": "natural",
   "prefer_related_applications": false,
   "icons": [
