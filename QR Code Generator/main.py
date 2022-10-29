@@ -15,6 +15,7 @@ def main(page: Page):
     page.count = len(os.listdir("assets/generated-codes"))
     page.window_min_height = 658
     page.window_width = 521
+    page.scroll = "hidden"
 
     def save(e):
         """saves the QR code as an SVG file(for PC) or opens a new tab for download(web)."""
@@ -180,4 +181,4 @@ def main(page: Page):
 
 if __name__ == "__main__":
     # flet.app(target=main, assets_dir="assets")
-    flet.app(target=main, assets_dir="assets",)
+    flet.app(target=main, assets_dir="assets", view=flet.WEB_BROWSER)
