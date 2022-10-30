@@ -2,7 +2,7 @@
 
 [Markdown](https://en.wikipedia.org/wiki/Markdown) is a lightweight markup language for creating formatted text using a plain-text editor.
 
-The originator describes it as follows:
+The creator of Markdown(John Gruber) describes it as follows:
 
 > Markdown is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).
 > -- http://daringfireball.net/projects/markdown/
@@ -14,14 +14,17 @@ _**Here is the link to the online version still in development:**_ [md-editor.fl
 
 ### Features:
 - Preview markdown output in realtime
-- save your input as markdown file(*.md), or in any file format(ex: *.txt).
+- save your input in well-known formats (`*.md`, `*.html`, `*.txt`) - `*.pdf` will soon be supported too.
 
 ### Captures
 https://user-images.githubusercontent.com/98978078/197305750-5f922239-d5b2-4ee0-8b50-46e2ce55608f.mp4
 
+### Note
+The `markdown2` python library([github](https://github.com/trentm/python-markdown2), [pypi](http://pypi.python.org/pypi/markdown2)) must be installed when saving with `.html` extension. 
+You are free to use any other library of your choice, or completely remove support for html-output.
 
 ### Tip
-Markdown has it's own _special syntax_, which is could be used in the editor. A cheatsheet could help increase speed, efficiency, and productivity.
+Markdown has its own _special syntax_, which could be used in the editor. A cheatsheet could help increase your speed, efficiency, and productivity when dealing with Markdown.
 [Markdown Cheatsheet by John Gruber](https://daringfireball.net/projects/markdown/syntax).
 
 ## Issues and Contribution
