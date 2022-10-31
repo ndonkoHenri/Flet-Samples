@@ -1,7 +1,7 @@
 import flet
 from flet import (colors, icons, Text, IconButton, AppBar, Page, Row, Theme, padding, SnackBar, Divider, Ref,
                   VerticalDivider, alignment, Container, Markdown, TextField, Column, TextStyle, AlertDialog,
-                  TextButton, ElevatedButton)
+                  TextButton, ElevatedButton, FilledButton)
 
 
 def main(page: Page):
@@ -80,9 +80,7 @@ def main(page: Page):
         :param file_format: The file format to be used when saving
         """
         try:
-            file_name = filename_field.current.value.strip()
-            if not file_name:
-                file_name = "untitled"
+            file_name = "untitled"
 
             # to save as HTML file, we convert the Markdown to html using 'markdown2' library
             with open(f"assets/{file_name}{file_format}", "w") as f:
@@ -442,29 +440,15 @@ Use the `printf()` function.
         on_tap_link=lambda e: page.launch_url(e.data),
     )
 
-    filename_field = Ref[TextField]()
     page.add(
         Row(
             [
                 Text("Markdown", style='titleLarge'),
-                TextField(
-                    filename_field,
-                    value="untitled",
-                    suffix=IconButton(
-                        icon=icons.DOWNLOAD,
-                        on_click=lambda e: open_dialog(),
-                        icon_size=15,
-                        tooltip="download file"
-                    ),
-                    tooltip="your file name",
-                    label="Save as",
-                    hint_text="untitled",
-                    width=180,
-                    height=60,
-                    border="outline",
-                    filled=True,
-                    label_style=TextStyle(italic=True, color=colors.GREEN, size=17)
-
+                FilledButton(
+                    "SAVE",
+                    on_click=lambda e: open_dialog(),
+                    tooltip="download file",
+                    icon=icons.DOWNLOAD_SHARP
                 ),
                 Text("Preview", style='titleLarge')
             ],
