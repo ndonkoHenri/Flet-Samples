@@ -7,7 +7,7 @@ The creator of Markdown(John Gruber) describes it as follows:
 > Markdown is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).
 > -- http://daringfireball.net/projects/markdown/
 
-This app will serve as an editor / a previewer for your Markdown.
+This app will serve as an editor for your Markdown.
 
 _**Here is the link to the online version still in development:**_ [md-editor.fly.dev](https://md-editor.fly.dev/)
 
