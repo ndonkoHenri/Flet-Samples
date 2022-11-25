@@ -1,10 +1,10 @@
-import flet
-from flet import (colors, icons, Text, IconButton, AppBar, Page, Row, Theme, padding, SnackBar, Divider, Ref,
-                  VerticalDivider, alignment, Container, Markdown, TextField, Column, TextStyle, AlertDialog,
-                  TextButton, ElevatedButton, FilledButton)
+import flet as ft
+import utils
 
 
-def main(page: Page):
+# todo: output as pdf | add error dialog to handle errors
+
+def main(page: ft.Page):
     """
     App's entry point.
 
@@ -23,30 +23,37 @@ def main(page: Page):
     page.window_width = 620
     page.window_height = 720
 
-    # a dialog to be shown when saving the file (on web only)
-    page.dialog = AlertDialog(
-        title=Text("Save as..."),
-        content=Text("Choose a format for your file.\nTip: Press CANCEL to abort."),
+    # set the splash (a progress bar)
+    page.splash = ft.ProgressBar(visible=False, color="yellow")
+
+    page.file_picker = ft.FilePicker(on_result=utils.file_picker_result_import, on_upload=utils.on_upload_progress)
+    # hide dialog in a overlay
+    page.overlay.append(page.file_picker)
+
+    # a dialog to be shown when saving/exporting (on web only)
+    web_export_dialog = ft.AlertDialog(
+        title=ft.Text("Save as..."),
+        content=ft.Text("Choose a format for your file.\nTip: Press CANCEL to abort."),
         modal=True,
         actions_alignment="center",
         actions=[
-            ElevatedButton(".md", on_click=lambda e: get_file_format(".md")),   # .md = Markdown file format
-            ElevatedButton(".txt", on_click=lambda e: get_file_format(".txt")),   # .txt = Text file format
-            ElevatedButton(".html", on_click=lambda e: get_file_format(".html")),     # .html = HTML file format
-            # TextButton(".pdf", on_click=lambda e: get_file_format(".pdf")),
-            TextButton("CANCEL", on_click=lambda e: get_file_format(None)),
+            ft.ElevatedButton(".md", on_click=lambda e: get_file_format(".md")),  # .md = Markdown file format
+            ft.ElevatedButton(".txt", on_click=lambda e: get_file_format(".txt")),  # .txt = ft.Text file format
+            ft.ElevatedButton(".html", on_click=lambda e: get_file_format(".html")),  # .html = HTML file format
+            # ft.TextButton(".pdf", on_click=lambda e: get_file_format(".pdf")),
+            ft.TextButton("CANCEL", on_click=lambda e: get_file_format(None)),
         ],
     )
 
-    def close_dialog():
-        """Closes the Alert Dialog."""
-        page.dialog.open = False
-        page.update()
+    def on_error(e):
+        # page.dialog = utils.error_dialog
+        # page.dialog.open = True
+        # page.update()
+        page.show_snack_bar(
+            ft.SnackBar(ft.Text(f"Humm, seems like an error suddenly occurred! Please try again."), open=True),
+        )
 
-    def open_dialog():
-        """Opens the Alert Dialog."""
-        page.dialog.open = True
-        page.update()
+    page.on_error = on_error
 
     def get_file_format(file_format: str | None):
         """
@@ -57,47 +64,58 @@ def main(page: Page):
         Note:
             file_format=None, when the CANCEL button of the AlertDialog is triggered.
         """
-        close_dialog()
+        page.dialog.open = False
+        page.update()
         if file_format is not None:
             md_save(file_format)
         else:
-            page.show_snack_bar(SnackBar(Text("Operation cancelled successfully!"), open=True))
+            page.show_snack_bar(ft.SnackBar(ft.Text("Operation cancelled successfully!"), open=True))
 
     def md_update(e):
         """
-        Updates the markdown(preview) when the text in the textfield changes.
+        Updates the markdown(preview) when the ft.Text in the ft.Textfield changes.
 
         :param e: the event that triggered the function
         """
-        md.value = md_field.value
+        page.md.value = page.text_field.value
         page.update()
+
+    def export_markdown_to_file(e):
+        if page.web:
+            page.dialog = web_export_dialog
+            page.dialog.open = True
+            page.update()
+        else:
+            page.file_picker.save_file(dialog_title="Save As...",
+                                       file_type="custom", file_name="untitled.md",
+                                       allowed_extensions=["txt", "md", 'html'])
 
     def md_save(file_format):
         """
-        It takes the text from the textarea, saves it as a file in the assets' folder with the specified file_format,
+        It takes the ft.Text from the ft.Textarea, saves it as a file in the assets' folder with the specified file_format,
         and opens the saved file in a new browser tab.
 
         :param file_format: The file format to be used when saving
         """
         try:
             file_name = "untitled"
-
             # to save as HTML file, we convert the Markdown to html using 'markdown2' library
-            with open(f"assets/{file_name}{file_format}", "w") as f:
+            with open(f"assets/untitled{file_format}", "w") as f:
                 if file_format == ".html":
-                    import markdown2    # pip install markdown2
-                    f.write(markdown2.markdown(md_field.value))
+                    import markdown2  # pip install markdown2
+                    f.write(markdown2.markdown(page.text_field.value))
                 else:
-                    f.write(md_field.value)
+                    f.write(page.text_field.value)
 
-            page.show_snack_bar(SnackBar(Text(f"Success: File was saved to assets as '{file_name}'!"), open=True if not page.web else False))
             page.launch_url(f"/{file_name}{file_format}")
+            page.show_snack_bar(ft.SnackBar(ft.Text(f"Success: File was saved to assets as '{file_name}'!"),
+                                            open=True if not page.web else False))
         except ImportError as exc:
             print(exc)
             print("To create an HTML output, install the markdown2 python library, using `pip install markdown2!`")
         except Exception as exc:
             print(exc)
-            page.show_snack_bar(SnackBar(Text(f"Error: {exc}!"), open=True))
+            page.show_snack_bar(ft.SnackBar(ft.Text(f"Error: {exc}!"), open=True))
 
     def change_theme(e):
         """
@@ -108,381 +126,138 @@ def main(page: Page):
         """
         page.theme_mode = "light" if page.theme_mode == "dark" else "dark"
         theme_icon_button.selected = not theme_icon_button.selected
-        theme_icon_button.icon = icons.DARK_MODE if theme_icon_button.icon == icons.LIGHT_MODE else icons.LIGHT_MODE
-        theme_icon_button.icon_color = colors.BLACK if theme_icon_button.icon_color == colors.WHITE else colors.WHITE
+        theme_icon_button.icon = ft.icons.DARK_MODE if theme_icon_button.icon == ft.icons.LIGHT_MODE else ft.icons.LIGHT_MODE
+        theme_icon_button.icon_color = ft.colors.BLACK if theme_icon_button.icon_color == ft.colors.WHITE else ft.colors.WHITE
         page.update()
 
     # button to change theme_mode (from dark to light mode, or the reverse)
-    theme_icon_button = IconButton(
-        icons.LIGHT_MODE,
-        icon_color=colors.WHITE,
+    theme_icon_button = ft.IconButton(
+        ft.icons.LIGHT_MODE,
+        icon_color=ft.colors.WHITE,
         selected=True,
         icon_size=35,
         tooltip="change theme",
         on_click=change_theme,
     )
 
-    page.appbar = AppBar(
-        title=Text("Markdown Editor", color=colors.WHITE),
+    page.appbar = ft.AppBar(
+        title=ft.Text("Markdown Editor", color=ft.colors.WHITE),
         center_title=True,
-        bgcolor=colors.BLUE,
+        bgcolor=ft.colors.BLUE,
         actions=[theme_icon_button],
         elevation=5,
     )
 
-    # a markdown example with basic syntax gotten from https://github.com/mxstbr/markdown-test-file/blob/master/TEST.md
     # you can move it to a file if you wish.
-    md_test_str = """
-# Markdown: Syntax
+    md_test_string = """# Markdown
+The following provides a quick reference to the most commonly used Markdown syntax.
+Gotten from https://ashki23.github.io/markdown-latex.html
 
-----
+## Headers
 
-## Overview
+### H3
 
-### Philosophy
+#### H4
 
-Markdown is intended to be as easy-to-read and easy-to-write as is feasible.
+##### H5
 
-Readability, however, is emphasized above all else. A Markdown-formatted
-document should be publishable as-is, as plain text, without looking
-like it's been marked up with tags or formatting instructions. While
-Markdown's syntax has been influenced by several existing text-to-HTML
-filters -- including [Setext](http://docutils.sourceforge.net/mirror/setext.html), [atx](http://www.aaronsw.com/2002/atx/), [Textile](http://textism.com/tools/textile/), [reStructuredText](http://docutils.sourceforge.net/rst.html),
-[Grutatext](http://www.triptico.com/software/grutatxt.html), and [EtText](http://ettext.taint.org/doc/) -- the single biggest source of
-inspiration for Markdown's syntax is the format of plain text email.
+###### H6
 
-## Block Elements
+*Italic* and **Bold**
+~~Scratched Text~~
 
-### Paragraphs and Line Breaks
+## Lists
+- Item 1
+- Item 2
+    - Item 2a (2 tabs)
+    - Item 2b
+        - Item 2b-1 (4 tabs)
+        - Item 2b-2
 
-A paragraph is simply one or more consecutive lines of text, separated
-by one or more blank lines. (A blank line is any line that looks like a
-blank line -- a line containing nothing but spaces or tabs is considered
-blank.) Normal paragraphs should not be indented with spaces or tabs.
+Link: [Github](http://www.github.com/)
 
-The implication of the "one or more consecutive lines of text" rule is
-that Markdown supports "hard-wrapped" text paragraphs. This differs
-significantly from most other text-to-HTML formatters (including Movable
-Type's "Convert Line Breaks" option) which translate every line break
-character in a paragraph into a `<br />` tag.
-
-When you *do* want to insert a `<br />` break tag using Markdown, you
-end a line with two or more spaces, then type return.
-
-### Headers
-
-Markdown supports two styles of headers, [Setext] [1] and [atx] [2].
-
-Optionally, you may "close" atx-style headers. This is purely
-cosmetic -- you can use this if you think it looks better. The
-closing hashes don't even need to match the number of hashes
-used to open the header. (The number of opening hashes
-determines the header level.)
-
-
-### Blockquotes
-
-Markdown uses email-style `>` characters for blockquoting. If you're
-familiar with quoting passages of text in an email message, then you
-know how to create a blockquote in Markdown. It looks best if you hard
-wrap the text and put a `>` before every line:
-
-> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-> 
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-> id sem consectetuer libero luctus adipiscing.
-
-Markdown allows you to be lazy and only put the `>` before the first
-line of a hard-wrapped paragraph:
-
-> This is a blockquote. Aliquam hendrerit mi posuere lectus.
-Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-id sem consectetuer libero luctus adipiscing.
-
-Blockquotes can be nested (i.e. a blockquote-in-a-blockquote) by
-adding additional levels of `>`:
-
-> This is the first level of quoting.
+Quote:
+> Imagination is more important than knowledge.
 >
-> > This is nested blockquote.
->
-> Back to the first level.
-
-Blockquotes can contain other Markdown elements, including headers, lists,
-and code blocks:
-
-> ## This is a header.
-> 
-> 1.   This is the first list item.
-> 2.   This is the second list item.
-> 
-> Here's some example code:
-> 
->     return shell_exec("echo $input | $markdown_script");
-
-Any decent text editor should make email-style quoting easy. For
-example, with BBEdit, you can make a selection and choose Increase
-Quote Level from the Text menu.
-
-
-### Lists
-
-Markdown supports ordered (numbered) and unordered (bulleted) lists.
-
-Unordered lists use asterisks, pluses, and hyphens -- interchangably
--- as list markers:
-
-*   Red
-*   Green
-*   Blue
-
-is equivalent to:
-
-+   Red
-+   Green
-+   Blue
-
-and:
-
--   Red
--   Green
--   Blue
-
-Ordered lists use numbers followed by periods:
-
-1.  Bird
-2.  McHale
-3.  Parish
-
-It's important to note that the actual numbers you use to mark the
-list have no effect on the HTML output Markdown produces. The HTML
-Markdown produces from the above list is:
-
-If you instead wrote the list in Markdown like this:
-
-1.  Bird
-1.  McHale
-1.  Parish
-
-or even:
-
-3. Bird
-1. McHale
-8. Parish
-
-you'd get the exact same HTML output. The point is, if you want to,
-you can use ordinal numbers in your ordered Markdown lists, so that
-the numbers in your source match the numbers in your published HTML.
-But if you want to be lazy, you don't have to.
-
-To make lists look nice, you can wrap items with hanging indents:
-
-*   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-    Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-    viverra, risus.
-*   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-    Suspendisse libero luctus adipiscing.
-
-But if you want to be lazy, you don't have to:
-
-*   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-viverra risus.
-*   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse luctus adipiscing.
-
-List items may consist of multiple paragraphs. Each subsequent
-paragraph in a list item must be indented by either 4 spaces
-or one tab:
-
-1.  This is a list item with two paragraphs. Lorem ipsum dolor
-    sit amet, elit. Aliquam hendrerit
-    mi posuere lectus.
-
-    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
-    sit amet velit.
-
-2.  Suspendisse id sem consectetuer libero luctus adipiscing.
-
-It looks nice if you indent every line of the subsequent
-paragraphs, but here again, Markdown will allow you to be
-lazy:
-
-*   This is a list item with two paragraphs.
-
-    This is the second paragraph in the list item. You're
-only required to indent the first line. Lorem ipsum dolor
-sit amet, consectetuer adipiscing elit.
-
-*   Another item in the same list.
-
-To put a blockquote within a list item, the blockquote's `>`
-delimiters need to be indented:
-
-*   A list item with a blockquote:
-
-    > This is a blockquote
-    > inside a list item.
-
-To put a code block within a list item, the code block needs
-to be indented *twice* -- 8 spaces or two tabs:
-
-*   A list item with a code block:
-
-        <code goes here>
-
-### Code Blocks
-
-Pre-formatted code blocks are used for writing about programming or
-markup source code. Rather than forming normal paragraphs, the lines
-of a code block are interpreted literally. Markdown wraps a code block
-in both `<pre>` and `<code>` tags.
-
-To produce a code block in Markdown, simply indent every line of the
-block by at least 4 spaces or 1 tab.
-
-This is a normal paragraph:
-
-    This is a code block.
-
-Here is an example of AppleScript:
-
-    tell application "Foo"
-        beep
-    end tell
-
-A code block continues until it reaches a line that is not indented
-(or the end of the article).
-
-Within a code block, ampersands (`&`) and angle brackets (`<` and `>`)
-are automatically converted into HTML entities. This makes it very
-easy to include example HTML source code using Markdown -- just paste
-it and indent it, and Markdown will handle the hassle of encoding the
-ampersands and angle brackets. For example, this:
-
-    <div class="footer">
-        &copy; 2004 Foo Corporation
-    </div>
-
-Regular Markdown syntax is not processed within code blocks. E.g.,
-asterisks are just literal asterisks within a code block. This means
-it's also easy to use Markdown to write about Markdown's own syntax.
-
-```
-tell application "Foo"
-    beep
-end tell
-```
-
-## Span Elements
-
-### Links
-
-Markdown supports two style of links: *inline* and *reference*.
-
-In both styles, the link text is delimited by [square brackets].
-
-To create an inline link, use a set of regular parentheses immediately
-after the link text's closing square bracket. Inside the parentheses,
-put the URL where you want the link to point, along with an *optional*
-title for the link, surrounded in quotes. For example:
-
-This is [an example](http://example.com/) inline link.
-
-[This link](http://example.net/) has no title attribute.
-
-### Emphasis
-
-Markdown treats asterisks (`*`) and underscores (`_`) as indicators of
-emphasis. Text wrapped with one `*` or `_` will be wrapped with an
-HTML `<em>` tag; double `*`'s or `_`'s will be wrapped with an HTML
-`<strong>` tag. E.g., this input:
-
-*single asterisks*
-
-_single underscores_
-
-**double asterisks**
-
-__double underscores__
-
-### Code
-
-To indicate a span of code, wrap it with backtick quotes (`` ` ``).
-Unlike a pre-formatted code block, a code span indicates code within a
-normal paragraph. For example:
-
-Use the `printf()` function.
+> Albert Einstein
+
+## Tables
+
+1st Header|2nd Header|3rd Header
+---|:---:|---: 
+col 1 is|left-aligned|1
+col 2 is|center-aligned|2
+col 3 is|right-aligned|3
 """
 
-    md_field = TextField(
-        value=md_test_str,
+    page.text_field = ft.TextField(
+        value=md_test_string,
         multiline=True,
-        min_lines=10,
         on_change=md_update,
-        expand=1,
+        expand=True,
         height=page.window_height,
         keyboard_type="text",
-        border_color=colors.TRANSPARENT,
+        border_color=ft.colors.TRANSPARENT,
         hint_text="# Heading\n\n- Use bulleted lists\n- To better clarify\n- Your points",
-        tooltip="enter your md text here"
-
     )
-    md = Markdown(
-        value=md_test_str,
+    page.md = ft.Markdown(
+        value=md_test_string,
         selectable=True,
         extension_set="gitHubWeb",
         on_tap_link=lambda e: page.launch_url(e.data),
     )
 
     page.add(
-        Row(
+        ft.Row(
             [
-                Text("Markdown", style='titleLarge'),
-                FilledButton(
-                    "SAVE",
-                    on_click=lambda e: open_dialog(),
-                    tooltip="download file",
-                    icon=icons.DOWNLOAD_SHARP
+                ft.Text("Markdown", style='titleLarge'),
+                ft.FilledButton(
+                    "Import",
+                    on_click=lambda _: page.file_picker.pick_files(dialog_title="Import File...",
+                                                                   file_type="custom", allow_multiple=False,
+                                                                   allowed_extensions=["txt", "md", 'html']),
+                    tooltip="load a file",
+                    icon=ft.icons.UPLOAD_FILE_ROUNDED
                 ),
-                Text("Preview", style='titleLarge')
+                ft.FilledButton(
+                    "Export",
+                    on_click=export_markdown_to_file,
+                    tooltip="save as ft.Text file",
+                    icon=ft.icons.SIM_CARD_DOWNLOAD_ROUNDED
+                ),
+                ft.Text("Preview", style='titleLarge')
             ],
             alignment="spaceAround"
         ),
-        Divider(thickness=1, color=colors.RED_ACCENT_700),
-        Row(
+        ft.Divider(thickness=1, color=ft.colors.RED_ACCENT_700),
+        ft.Row(
             [
-                md_field,
-                VerticalDivider(width=1, thickness=1, color=colors.RED_ACCENT_700),
-                Container(
-                    Column(
+                page.text_field,
+                ft.VerticalDivider(color=ft.colors.RED_ACCENT_700),
+                ft.Container(
+                    ft.Column(
                         [
-                            md
+                            page.md
                         ],
                         scroll="hidden"
                     ),
-                    expand=1,
-                    alignment=alignment.top_left,
-                    padding=padding.Padding(0, 12, 0, 0),
+                    expand=True,
+                    alignment=ft.alignment.top_left,
+                    padding=ft.padding.Padding(0, 12, 0, 0),
                 )
             ],
             expand=True,
         ),
-        Text(
+        ft.Text(
             "Made with ❤ by @ndonkoHenri aka TheEthicalBoy!",
             style="labelSmall",
             weight="bold",
             italic=True,
-            color=colors.BLUE_900,
+            color=ft.colors.BLUE_900,
         )
     )
 
 
 # (running the app)
 if __name__ == "__main__":
-    flet.app(target=main, assets_dir="assets", view=flet.WEB_BROWSER)
+    ft.app(target=main, assets_dir="assets", upload_dir='assets/uploads')
