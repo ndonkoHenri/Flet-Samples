@@ -73,7 +73,7 @@ def main(page: ft.Page):
 
     def md_update(e):
         """
-        Updates the markdown(preview) when the ft.Text in the ft.Textfield changes.
+        Updates the markdown(preview) when the text in the Textfield changes.
 
         :param e: the event that triggered the function
         """
@@ -92,22 +92,22 @@ def main(page: ft.Page):
 
     def md_save(file_format):
         """
-        It takes the ft.Text from the ft.Textarea, saves it as a file in the assets' folder with the specified file_format,
-        and opens the saved file in a new browser tab.
+        It takes the Text from the textarea (Left hand side section), saves it as a file in the assets' folder
+        with the specified file_format, and opens the saved file in a new browser tab using a rel-path to the assets.
 
         :param file_format: The file format to be used when saving
         """
         try:
             file_name = "untitled"
             # to save as HTML file, we convert the Markdown to html using 'markdown2' library
-            with open(f"assets/untitled{file_format}", "w") as f:
+            with open(f"assets/untitled{file_format}", "w") as f:   # save it in the assets folder
                 if file_format == ".html":
                     import markdown2  # pip install markdown2
                     f.write(markdown2.markdown(page.text_field.value))
                 else:
                     f.write(page.text_field.value)
 
-            page.launch_url(f"/{file_name}{file_format}")
+            page.launch_url(f"/{file_name}{file_format}")   # open the file (already in the assets folder)
             page.show_snack_bar(ft.SnackBar(ft.Text(f"Success: File was saved to assets as '{file_name}'!"),
                                             open=True if not page.web else False))
         except ImportError as exc:
@@ -190,6 +190,7 @@ col 2 is|center-aligned|2
 col 3 is|right-aligned|3
 """
 
+    # the LHS of the editor
     page.text_field = ft.TextField(
         value=md_test_string,
         multiline=True,
@@ -200,6 +201,7 @@ col 3 is|right-aligned|3
         border_color=ft.colors.TRANSPARENT,
         hint_text="# Heading\n\n- Use bulleted lists\n- To better clarify\n- Your points",
     )
+    # the RHS of the editor
     page.md = ft.Markdown(
         value=md_test_string,
         selectable=True,
