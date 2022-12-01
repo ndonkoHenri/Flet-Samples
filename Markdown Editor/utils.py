@@ -93,6 +93,8 @@ def upload_file(e):
 
 # textfield and markdown
 def overwrite_textfield_and_md(page, file_name_or_path, is_web=True):
+    """updates the content of the LHS and RHS"""
+
     global file_path
 
     file_path = f'assets/uploads/{file_name_or_path}' if is_web else file_name_or_path
@@ -109,8 +111,8 @@ def overwrite_textfield_and_md(page, file_name_or_path, is_web=True):
         )
         return
 
-    page.text_field.value = text
-    page.md.value = text
+    page.text_field.value = text    # update the content of the Textfield (LHS)
+    page.md.value = text            # update the content of the Markdown (RHS)
     page.update()
 
     page.dialog.open = False
