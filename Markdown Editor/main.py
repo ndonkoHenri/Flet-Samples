@@ -35,7 +35,7 @@ def main(page: ft.Page):
         title=ft.Text("Save as..."),
         content=ft.Text("Choose a format for your file.\nTip: Press CANCEL to abort."),
         modal=True,
-        actions_alignment="center",
+        actions_alignment=ft.MainAxisAlignment.CENTER,
         actions=[
             ft.ElevatedButton(".md", on_click=lambda e: get_file_format(".md")),  # .md = Markdown file format
             ft.ElevatedButton(".txt", on_click=lambda e: get_file_format(".txt")),  # .txt = ft.Text file format
@@ -86,9 +86,12 @@ def main(page: ft.Page):
             page.dialog.open = True
             page.update()
         else:
-            page.file_picker.save_file(dialog_title="Save As...",
-                                       file_type="custom", file_name="untitled.md",
-                                       allowed_extensions=["txt", "md", 'html'])
+            page.file_picker.save_file(
+                dialog_title="Save As...",
+                file_type=ft.FilePickerFileType.CUSTOM,
+                file_name="untitled.md",
+                allowed_extensions=["txt", "md", 'html']
+            )
 
     def md_save(file_format):
         """
@@ -100,14 +103,14 @@ def main(page: ft.Page):
         try:
             file_name = "untitled"
             # to save as HTML file, we convert the Markdown to html using 'markdown2' library
-            with open(f"assets/untitled{file_format}", "w") as f:   # save it in the assets folder
+            with open(f"assets/untitled{file_format}", "w") as f:  # save it in the assets folder
                 if file_format == ".html":
                     import markdown2  # pip install markdown2
                     f.write(markdown2.markdown(page.text_field.value))
                 else:
                     f.write(page.text_field.value)
 
-            page.launch_url(f"/{file_name}{file_format}")   # open the file (already in the assets folder)
+            page.launch_url(f"/{file_name}{file_format}")  # open the file (already in the assets folder)
             page.show_snack_bar(ft.SnackBar(ft.Text(f"Success: File was saved to assets as '{file_name}'!"),
                                             open=True if not page.web else False))
         except ImportError as exc:
@@ -126,15 +129,15 @@ def main(page: ft.Page):
         """
         page.theme_mode = "light" if page.theme_mode == "dark" else "dark"
         theme_icon_button.selected = not theme_icon_button.selected
-        theme_icon_button.icon = ft.icons.DARK_MODE if theme_icon_button.icon == ft.icons.LIGHT_MODE else ft.icons.LIGHT_MODE
-        theme_icon_button.icon_color = ft.colors.BLACK if theme_icon_button.icon_color == ft.colors.WHITE else ft.colors.WHITE
         page.update()
 
     # button to change theme_mode (from dark to light mode, or the reverse)
     theme_icon_button = ft.IconButton(
-        ft.icons.LIGHT_MODE,
+        icon=ft.icons.LIGHT_MODE,
+        selected_icon=ft.icons.DARK_MODE,
         icon_color=ft.colors.WHITE,
-        selected=True,
+        selected_icon_color=ft.colors.BLACK,
+        selected=False,
         icon_size=35,
         tooltip="change theme",
         on_click=change_theme,
@@ -197,7 +200,7 @@ col 3 is|right-aligned|3
         on_change=md_update,
         expand=True,
         height=page.window_height,
-        keyboard_type="text",
+        keyboard_type=ft.KeyboardType.TEXT,
         border_color=ft.colors.TRANSPARENT,
         hint_text="# Heading\n\n- Use bulleted lists\n- To better clarify\n- Your points",
     )
@@ -205,19 +208,22 @@ col 3 is|right-aligned|3
     page.md = ft.Markdown(
         value=md_test_string,
         selectable=True,
-        extension_set="gitHubWeb",
+        extension_set=ft.MarkdownExtensionSet.GITHUB_WEB,
         on_tap_link=lambda e: page.launch_url(e.data),
     )
 
     page.add(
         ft.Row(
             [
-                ft.Text("Markdown", style='titleLarge'),
+                ft.Text("Markdown", style=ft.TextThemeStyle.TITLE_LARGE),
                 ft.FilledButton(
                     "Import",
-                    on_click=lambda _: page.file_picker.pick_files(dialog_title="Import File...",
-                                                                   file_type="custom", allow_multiple=False,
-                                                                   allowed_extensions=["txt", "md", 'html']),
+                    on_click=lambda _: page.file_picker.pick_files(
+                        dialog_title="Import File...",
+                        file_type=ft.FilePickerFileType.CUSTOM,
+                        allow_multiple=False,
+                        allowed_extensions=["txt", "md", 'html']
+                    ),
                     tooltip="load a file",
                     icon=ft.icons.UPLOAD_FILE_ROUNDED
                 ),
@@ -227,9 +233,9 @@ col 3 is|right-aligned|3
                     tooltip="save as ft.Text file",
                     icon=ft.icons.SIM_CARD_DOWNLOAD_ROUNDED
                 ),
-                ft.Text("Preview", style='titleLarge')
+                ft.Text("Preview", style=ft.TextThemeStyle.TITLE_LARGE)
             ],
-            alignment="spaceAround"
+            alignment=ft.MainAxisAlignment.SPACE_AROUND
         ),
         ft.Divider(thickness=1, color=ft.colors.RED_ACCENT_700),
         ft.Row(
