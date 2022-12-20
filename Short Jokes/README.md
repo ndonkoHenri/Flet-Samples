@@ -1,6 +1,9 @@
 # Short Jokes
 
-I deployed an online version of this application [here](https://short-jokes.fly.dev). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc).
+<!-- I deployed an online version of this application [here](https://short-jokes.fly.dev). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc). -->
+
+<img src="_sample.gif" alt="sample" width=85% align="center">
+
 
 ### Where are the jokes from?
 All the jokes you will see while using this app are served by [JokeAPI](https://v2.jokeapi.dev/).
