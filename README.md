@@ -10,4 +10,6 @@
 
 - QR Code Generator - [qrcode-gen.fly.dev](https://qrcode-gen.fly.dev/)
 
+- Short Jokes - _not yet deployed_ 😵‍
+
 _More are still to come..._
