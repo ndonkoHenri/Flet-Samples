@@ -1,5 +1,6 @@
 # Short Jokes
 
+
 <!-- I deployed an online version of this application [here](https://short-jokes.fly.dev). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc). -->
 
 <img src="_sample.gif" alt="sample" width=85% align="center">
