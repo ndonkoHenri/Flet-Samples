@@ -1,6 +1,6 @@
-# Startup Name Generator
+# StartUp Name Generator Clone
 
-I made this after watching an [interview](https://www.youtube.com/watch?v=kxsLRRY2xZA&t=3007s) of Flet's creator and core dev (Feodor Fitsner).
+I made this after watching an [interview](https://www.youtube.com/watch?v=kxsLRRY2xZA&t=3512s) of Flet with it's creator and core dev Feodor Fitsner.
 The idea was to reproduce apps made with Flutter with Flet, exposing how easy and cool it is to build UIs with Flet.
 
 To be brief, this "Startup Name Generator" comes from [Flutter's CodeLab tutorial](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2#0) made mainly for beginners starting with the framework.
