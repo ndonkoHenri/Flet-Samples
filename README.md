@@ -12,4 +12,6 @@
 
 - Short Jokes - _not yet deployed_ 😵‍
 
+- StartUp Name Generator Clone
+
 _More are still to come..._
