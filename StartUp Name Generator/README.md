@@ -12,6 +12,9 @@ I left this out because I didn't find a python package to do that, and also want
 
 - **Made with Flutter:**
 
+![flutter startup name gen](https://user-images.githubusercontent.com/98978078/210209500-02e3cacc-1692-44ad-bf55-3ea10302a692.gif)
+
 
 - **Made with Flet:** 
 
+![startup name gen GIF](https://user-images.githubusercontent.com/98978078/210209505-26c6664f-2d7b-4751-9758-7fee96be4696.gif)
