@@ -3,7 +3,7 @@
 
 <!-- I deployed an online version of this application [here](https://short-jokes.fly.dev). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc). -->
 
-<img src="_sample.gif" alt="sample" align="center">
+![image](https://user-images.githubusercontent.com/98978078/211143358-57a220f3-5928-482e-925d-2c94cd1ffd62.png)
 
 
 ### Where are the jokes from?
