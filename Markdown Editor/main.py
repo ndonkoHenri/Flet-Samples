@@ -149,6 +149,11 @@ def main(page: ft.Page):
         bgcolor=ft.colors.BLUE,
         actions=[theme_icon_button],
         elevation=5,
+        leading=ft.IconButton(
+            icon=ft.icons.CODE,
+            icon_color=ft.colors.YELLOW_ACCENT,
+            on_click=lambda e: page.launch_url("https://github.com/ndonkoHenri/Flet-Samples/tree/master/Markdown%20Editor")
+        )
     )
 
     # you can move it to a file if you wish.

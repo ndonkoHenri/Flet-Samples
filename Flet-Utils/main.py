@@ -58,6 +58,12 @@ def main(page: Page):
         center_title=True,
         bgcolor="blue",
         actions=[theme_icon_button],
+        leading=IconButton(
+            icon=icons.CODE,
+            icon_color=colors.YELLOW_ACCENT,
+            on_click=lambda e: page.launch_url(
+                "https://github.com/ndonkoHenri/Flet-Samples/tree/master/Flet-Utils")
+        )
     )
 
     border_radius_content = TabContentBorderRadius()

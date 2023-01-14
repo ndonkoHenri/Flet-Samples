@@ -109,6 +109,12 @@ def main(page: ft.Page):
         bgcolor="blue",
         color="yellow",
         actions=[theme_icon_button],
+        leading=ft.IconButton(
+            icon=ft.icons.CODE,
+            icon_color=ft.colors.YELLOW_ACCENT,
+            on_click=lambda e: page.launch_url(
+                "https://github.com/ndonkoHenri/Flet-Samples/tree/master/Short%20Jokes")
+        )
     )
 
     page.jokes_row = ft.ResponsiveRow(
