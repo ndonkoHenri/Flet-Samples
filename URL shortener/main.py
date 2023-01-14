@@ -90,7 +90,7 @@ def main(page: ft.Page):
             # if the entered text in the textfield is not a valid URl, the program may break,
             # hence the need to catch that in a try-except
             try:
-                page.add(ft.Text(f"Long URL: {text_field.value}", italic=False, weight='bold'))
+                page.add(ft.Text(f"Long URL: {text_field.value}", italic=False, weight=ft.FontWeight.BOLD))
                 page.add(ShortLinkRow(shortener.tinyurl.short(text_field.value), "Source: tinyurl.com"))
                 page.add(ShortLinkRow(shortener.chilpit.short(text_field.value), "Source: chilp.it"))
                 page.add(ShortLinkRow(shortener.clckru.short(text_field.value), "Source: clck.ru"))
@@ -139,6 +139,12 @@ def main(page: ft.Page):
         center_title=True,
         bgcolor="blue",
         actions=[theme_icon_button],
+        leading=ft.IconButton(
+            icon=ft.icons.CODE,
+            icon_color=ft.colors.YELLOW_ACCENT,
+            on_click=lambda e: page.launch_url(
+                "https://github.com/ndonkoHenri/Flet-Samples/tree/master/URL%20shortener")
+        )
     )
 
     page.add(
@@ -148,12 +154,12 @@ def main(page: ft.Page):
             hint_text="type long url here",
             max_length=200,
             width=800,
-            keyboard_type="url",
+            keyboard_type=ft.KeyboardType.URL,
             # 'shorten' is the function to be called on occurrence of some events
             suffix=ft.FilledButton("Shorten!", on_click=shorten),  # event: button clicked
             on_submit=shorten  # event: 'enter' key pressed
         ),
-        ft.Text("Generated URLs:", weight="bold", size=23, font_family="sf-bold")
+        ft.Text("Generated URLs:", weight=ft.FontWeight.BOLD, size=23, font_family="sf-bold")
     )
 
 
