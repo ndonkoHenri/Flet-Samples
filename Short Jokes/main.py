@@ -35,16 +35,13 @@ def main(page: ft.Page):
 
     def change_theme(e):
         """
-        When the button(to change theme) is clicked, the progress bar is made visible, the theme is changed,
-        the progress bar is made invisible, and the page is updated
+        When the button(to change theme) is clicked, the theme is changed, and the page is updated.
 
         :param e: The event that triggered the function
         """
         page.theme_mode = "light" if page.theme_mode == "dark" else "dark"
         theme_icon_button.selected = not theme_icon_button.selected
         page.update()
-
-        # button to change theme_mode (from dark to light mode, or the reverse)
 
     def generate(e):
         # make sure the banner is closed
