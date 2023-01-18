@@ -3,8 +3,7 @@
 
 <!-- I deployed an online version of this application [here](https://short-jokes.fly.dev). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc). -->
 
-![image](https://user-images.githubusercontent.com/98978078/211143358-57a220f3-5928-482e-925d-2c94cd1ffd62.png)
-
+![short jokes GIF](https://user-images.githubusercontent.com/98978078/213294369-634e2d21-c4f1-4933-b021-9c017489946a.gif)
 
 ### Where are the jokes from?
 All the jokes you will see while using this app are served by [JokeAPI](https://v2.jokeapi.dev/).
