@@ -1,5 +1,4 @@
 import os
-import time
 import flet as ft
 import pyqrcode
 
@@ -83,12 +82,8 @@ def main(page: ft.Page):
         :param e: The event that triggered the function
         :type e: ControlEvent
         """
-        page.splash.visible = True
-        page.update()
         page.theme_mode = "light" if page.theme_mode == "dark" else "dark"  # changes the page's theme_mode
-        page.splash.visible = False
         theme_icon_button.selected = not theme_icon_button.selected  # changes the icon
-        time.sleep(0.2)  # shows the progress bar for some time indicating that work is being done
         page.update()
 
     def generate_qr(e):
@@ -149,6 +144,7 @@ def main(page: ft.Page):
         leading=ft.IconButton(
             icon=ft.icons.CODE,
             icon_color=ft.colors.YELLOW_ACCENT,
+            tooltip="View Code",
             on_click=lambda e: page.launch_url(
                 "https://github.com/ndonkoHenri/Flet-Samples/tree/master/QR%20Code%20Generator")
         )
