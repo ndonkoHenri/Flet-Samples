@@ -3,7 +3,6 @@ from utils import JokeCard, ethical_signature
 from joke import return_joke
 
 
-# todo: add some tests for copy, delete ...
 
 def main(page: ft.Page):
     page.title = "Short Jokes"
@@ -109,6 +108,7 @@ def main(page: ft.Page):
         leading=ft.IconButton(
             icon=ft.icons.CODE,
             icon_color=ft.colors.YELLOW_ACCENT,
+            tooltip="View Code",
             on_click=lambda e: page.launch_url(
                 "https://github.com/ndonkoHenri/Flet-Samples/tree/master/Short%20Jokes")
         )
