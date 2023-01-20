@@ -1,4 +1,3 @@
-import time
 import flet as ft
 import pyshorteners  # pip install pyshorteners
 
@@ -73,12 +72,8 @@ def main(page: ft.Page):
         :param e: The event that triggered the function
         :type e: ControlEvent
         """
-        page.splash.visible = True
-        page.update()
         page.theme_mode = "light" if page.theme_mode == "dark" else "dark"  # changes the page's theme_mode
-        page.splash.visible = False
         theme_icon_button.selected = not theme_icon_button.selected  # changes the icon
-        time.sleep(0.3)  # shows the progress bar for a second indicating that work is being done..
         page.update()
 
     def shorten(e: ft.ControlEvent):
@@ -89,8 +84,10 @@ def main(page: ft.Page):
         if user_link:  # if the textfield is not empty
             # if the entered text in the textfield is not a valid URl, the program may break,
             # hence the need to catch that in a try-except
+            page.splash.visible = True
+            page.update()
+            page.add(ft.Text(f"Long URL: {text_field.value}", italic=False, weight=ft.FontWeight.BOLD))
             try:
-                page.add(ft.Text(f"Long URL: {text_field.value}", italic=False, weight=ft.FontWeight.BOLD))
                 page.add(ShortLinkRow(shortener.tinyurl.short(text_field.value), "Source: tinyurl.com"))
                 page.add(ShortLinkRow(shortener.chilpit.short(text_field.value), "Source: chilp.it"))
                 page.add(ShortLinkRow(shortener.clckru.short(text_field.value), "Source: clck.ru"))
@@ -111,6 +108,8 @@ def main(page: ft.Page):
                         open=True
                     )
                 )
+                page.splash.visible = False
+                page.update()
 
         else:  # if the textfield is empty (no text)
             # inform the user
@@ -142,6 +141,7 @@ def main(page: ft.Page):
         leading=ft.IconButton(
             icon=ft.icons.CODE,
             icon_color=ft.colors.YELLOW_ACCENT,
+            tooltip="View Code",
             on_click=lambda e: page.launch_url(
                 "https://github.com/ndonkoHenri/Flet-Samples/tree/master/URL%20shortener")
         )
