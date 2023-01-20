@@ -1,10 +1,10 @@
 import time
 from itertools import islice
 
-from flet import (colors, icons, UserControl, SnackBar, Text, Row,
+from flet import (colors, icons, UserControl, SnackBar, Text, Row, TextCapitalization,
                   TextField, IconButton, GridView, TextButton, Container, Icon, Column,
-                  FloatingActionButton,
-                  alignment, Tabs, Ref, ListView, Tab)
+                  FloatingActionButton, TextAlign, FontWeight, MainAxisAlignment, KeyboardType,
+                  alignment, Tabs, Ref, ListView, Tab, CrossAxisAlignment)
 from flet.control_event import ControlEvent
 
 
@@ -12,19 +12,14 @@ from flet.control_event import ControlEvent
 class TabContentColors1(UserControl):
     # all this below was obtained from https://github.com/ndonkoHenri/Flet-Color-Browser
 
-    def __init__(self, expand=True, height=500):
+    def __init__(self, expand=True):
         """
         If the expand parameter is set to True, then the expand attribute of the object is set to True. Otherwise, the
         height attribute of the object is set to the value of the height parameter.
 
         :param expand: If True, the widget will expand to fill its parent, defaults to True (optional)
-        :param height: The height of the widget, defaults to 500 (optional)
         """
-        super().__init__()
-        if expand:
-            self.expand = expand
-        else:
-            self.height = height
+        super().__init__(expand=expand)
 
     def build(self):
         def batches(iterable, batch_size):
@@ -124,12 +119,12 @@ class TabContentColors1(UserControl):
                                         Icon(name=icons.RECTANGLE, size=38, color=colors_dict[color_key], ),
                                         Text(
                                             value=f"{colors_dict[color_key]}", size=14, width=100,
-                                            no_wrap=True, text_align="center", color=colors_dict[color_key],
+                                            no_wrap=True, text_align=TextAlign.CENTER, color=colors_dict[color_key],
                                         ),
                                     ],
                                     spacing=5,
-                                    alignment="center",
-                                    horizontal_alignment="center",
+                                    alignment=MainAxisAlignment.CENTER,
+                                    horizontal_alignment=CrossAxisAlignment.CENTER,
                                 ),
                                 alignment=alignment.center,
                             ),
@@ -165,7 +160,7 @@ class Tile(Container):
 
     def __init__(self, tile_text, color, page):
         super().__init__()
-        self.text = Text(tile_text, text_align="center", weight="bold", italic=True, )
+        self.text = Text(tile_text, text_align=TextAlign.CENTER, weight=FontWeight.BOLD, italic=True, )
         self.color_text = f"colors.{tile_text}"
         self.bgcolor = color
         self.expand = True
@@ -308,7 +303,7 @@ class TabContentColors2(UserControl):
                                  border_radius=50, suffix=IconButton(icon=icons.CHECK, bgcolor=colors.INVERSE_PRIMARY,
                                                                      icon_color=colors.ERROR, on_click=filter_tabs),
                                  helper_text="Tip: Enter 'ALL' to show all the tabs", height=70, width=450,
-                                 keyboard_type="text", capitalization="characters", )
+                                 keyboard_type=KeyboardType.TEXT, capitalization=TextCapitalization.CHARACTERS, )
 
         return Column(
             controls=[

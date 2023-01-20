@@ -2,7 +2,7 @@ from itertools import islice
 
 from flet import (colors, icons, UserControl, SnackBar, Text, Row,
                   TextField, IconButton, GridView, TextButton, Container, Icon, Column,
-                  alignment)
+                  alignment, TextAlign, MainAxisAlignment, CrossAxisAlignment)
 
 
 # the content of the Icons tab
@@ -10,7 +10,7 @@ class TabContentIcons(UserControl):
     # all this below was obtained from https://github.com/flet-dev/examples/tree/main/python/apps/icons-browser
 
     def __init__(self):
-        super().__init__(expand=True)
+        super().__init__()
 
     def build(self):
         def batches(iterable, batch_size):
@@ -118,13 +118,13 @@ class TabContentIcons(UserControl):
                                             size=12,
                                             width=100,
                                             no_wrap=True,
-                                            text_align="center",
+                                            text_align=TextAlign.CENTER,
                                             color=colors.ON_SURFACE_VARIANT,
                                         ),
                                     ],
                                     spacing=5,
-                                    alignment="center",
-                                    horizontal_alignment="center",
+                                    alignment=MainAxisAlignment.CENTER,
+                                    horizontal_alignment=CrossAxisAlignment.CENTER,
                                 ),
                                 alignment=alignment.center,
                             ),

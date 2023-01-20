@@ -367,7 +367,8 @@ class TabContentTooltip(UserControl):
             int(self.field_wait_duration.value.strip()) if self.field_wait_duration.value.strip().isnumeric() else None,
             int(self.field_show_duration.value.strip()) if self.field_show_duration.value.strip().isnumeric() else None,
             int(self.field_height.value.strip()) if self.field_height.value.strip().isnumeric() else None,
-            int(self.field_vertical_offset.value.strip()) if self.field_vertical_offset.value.strip().isnumeric() else None)
+            int(self.field_vertical_offset.value.strip()) if self.field_vertical_offset.value.strip().isnumeric() else None
+        )
 
         self.enable_feedback = self.enable_feedback_dropdown.value
         self.shape = self.shape_dropdown.value
