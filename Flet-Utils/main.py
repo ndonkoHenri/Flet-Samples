@@ -1,7 +1,6 @@
-import time
-
 import flet
-from flet import icons, colors, Page, ProgressBar, IconButton, ButtonStyle, AppBar, Text, Tab, Tabs
+from flet import (icons, colors, Page, ProgressBar, IconButton, ButtonStyle, AppBar, Text, Tab, Tabs, TextThemeStyle,
+                  FontWeight)
 from utils.padding_utils import TabContentPadding
 from utils.alignment_utils import TabContentAlignment
 from utils.border_utils import TabContentBorder
@@ -11,13 +10,13 @@ from utils.icons_utils import TabContentIcons
 from utils.gradient_utils import TabContentLinearGradient, TabContentSweepGradient, TabContentRadialGradient
 from utils.shadermask_utils import TabContentShaderMask
 from utils.shape_utils import TabContentShape
+from utils.tooltip_utils import TabContentTooltip
 
 
 def main(page: Page):
     page.title = "Flet Utilities"
-    page.theme_mode = "light"  # by default, page.theme_mode=None
+    page.theme_mode = "light"
     # page.window_always_on_top = True
-    page.splash = ProgressBar(visible=False)
     page.vertical_alignment = "start"
     # set the width and height of the window.
     page.window_width = 572
@@ -32,12 +31,8 @@ def main(page: Page):
         :param e: The event that triggered the function
         :type e: ControlEvent
         """
-        page.splash.visible = True
-        page.update()
         page.theme_mode = "light" if page.theme_mode == "dark" else "dark"  # changes the page's theme_mode
-        page.splash.visible = False
         theme_icon_button.selected = not theme_icon_button.selected  # changes the icon
-        time.sleep(0.2)  # shows the progress bar for a second indicating that work is being done..
         page.update()
 
     theme_icon_button = IconButton(
@@ -62,10 +57,12 @@ def main(page: Page):
             icon=icons.CODE,
             icon_color=colors.YELLOW_ACCENT,
             on_click=lambda e: page.launch_url(
-                "https://github.com/ndonkoHenri/Flet-Samples/tree/master/Flet-Utils")
-        )
+                "https://github.com/ndonkoHenri/Flet-Samples/tree/master/Flet-Utils"),
+            tooltip="View Code"
+        ),
     )
 
+    tooltip_content = TabContentTooltip()
     border_radius_content = TabContentBorderRadius()
     padding_content = TabContentPadding()
     icons_content = TabContentIcons()
@@ -82,10 +79,14 @@ def main(page: Page):
     page.add(
         Tabs(
             expand=True,
-            selected_index=11,
+            selected_index=7,
             tabs=[
                 Tab(
-                    text="BorderRadius",
+                    text="Tooltip",
+                    content=tooltip_content
+                ),
+                Tab(
+                    text="Border Radius",
                     content=border_radius_content
                 ),
                 Tab(
@@ -136,12 +137,12 @@ def main(page: Page):
         ),
         Text(
             "Made with ❤ by @ndonkoHenri aka TheEthicalBoy!",
-            style="labelSmall",
-            weight="bold",
+            style=TextThemeStyle.LABEL_SMALL,
+            weight=FontWeight.BOLD,
             italic=True,
             color=colors.BLUE_900,
         )
     )
 
 
-flet.app(target=main)
+flet.app(target=main, route_url_strategy="path")
