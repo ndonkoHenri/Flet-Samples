@@ -1,8 +1,6 @@
 # import all the controls: if the shader mask requires controls which are not imported, an error is raised
 from flet import *
-from flet import colors, icons
-from flet.border_radius import BorderRadius
-from flet.control_event import ControlEvent
+from flet import colors, icons, border_radius
 
 
 # the content of the ShaderMask tab
@@ -86,6 +84,7 @@ class TabContentShaderMask(UserControl):
         )
 
         self.border_radius = 10
+
         self.shader = LinearGradient(
             begin=alignment.top_center,
             end=alignment.bottom_center,
