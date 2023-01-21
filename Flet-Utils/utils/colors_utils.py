@@ -4,8 +4,7 @@ from itertools import islice
 from flet import (colors, icons, UserControl, SnackBar, Text, Row, TextCapitalization,
                   TextField, IconButton, GridView, TextButton, Container, Icon, Column,
                   FloatingActionButton, TextAlign, FontWeight, MainAxisAlignment, KeyboardType,
-                  alignment, Tabs, Ref, ListView, Tab, CrossAxisAlignment)
-from flet.control_event import ControlEvent
+                  alignment, Tabs, Ref, ListView, Tab, CrossAxisAlignment, ControlEvent)
 
 
 # the content of the ColorV1 tab
