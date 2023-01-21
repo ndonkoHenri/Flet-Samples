@@ -1,7 +1,6 @@
 from flet import (colors, border_radius, icons, padding, UserControl, SnackBar, Text, Alignment, Row,
                   FilledButton, TextField, Container, Column, ScrollMode,
-                  Ref, FilledTonalButton, Divider, MainAxisAlignment, FontWeight, KeyboardType)
-from flet.control_event import ControlEvent
+                  Ref, FilledTonalButton, Divider, MainAxisAlignment, FontWeight, KeyboardType, ControlEvent)
 
 
 # the content of the padding tab
