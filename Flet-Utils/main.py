@@ -1,6 +1,4 @@
-import flet
-from flet import (icons, colors, Page, ProgressBar, IconButton, ButtonStyle, AppBar, Text, Tab, Tabs, TextThemeStyle,
-                  FontWeight)
+import flet as ft
 from utils.padding_utils import TabContentPadding
 from utils.alignment_utils import TabContentAlignment
 from utils.border_utils import TabContentBorder
@@ -13,7 +11,7 @@ from utils.shape_utils import TabContentShape
 from utils.tooltip_utils import TabContentTooltip
 
 
-def main(page: Page):
+def main(page: ft.Page):
     page.title = "Flet Utilities"
     page.theme_mode = "light"
     # page.window_always_on_top = True
@@ -35,27 +33,27 @@ def main(page: Page):
         theme_icon_button.selected = not theme_icon_button.selected  # changes the icon
         page.update()
 
-    theme_icon_button = IconButton(
-        icons.DARK_MODE,
+    theme_icon_button = ft.IconButton(
+        ft.icons.DARK_MODE,
         selected=False,
-        selected_icon=icons.LIGHT_MODE,
+        selected_icon=ft.icons.LIGHT_MODE,
         icon_size=35,
         tooltip="change theme",
         on_click=change_theme,
-        style=ButtonStyle(color={"": colors.BLACK, "selected": colors.WHITE}, ),
+        style=ft.ButtonStyle(color={"": ft.colors.BLACK, "selected": ft.colors.WHITE}, ),
     )
 
-    page.appbar = AppBar(
-        title=Text(
+    page.appbar = ft.AppBar(
+        title=ft.Text(
             "Flet Utilities",
             color="white"
         ),
         center_title=True,
         bgcolor="blue",
         actions=[theme_icon_button],
-        leading=IconButton(
-            icon=icons.CODE,
-            icon_color=colors.YELLOW_ACCENT,
+        leading=ft.IconButton(
+            icon=ft.icons.CODE,
+            icon_color=ft.colors.YELLOW_ACCENT,
             on_click=lambda e: page.launch_url(
                 "https://github.com/ndonkoHenri/Flet-Samples/tree/master/Flet-Utils"),
             tooltip="View Code"
@@ -77,72 +75,78 @@ def main(page: Page):
     shader_mask_content = TabContentShaderMask()
 
     page.add(
-        Tabs(
+        ft.Tabs(
             expand=True,
-            selected_index=7,
+            selected_index=2,
             tabs=[
-                Tab(
+                ft.Tab(
                     text="Tooltip",
                     content=tooltip_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Border Radius",
                     content=border_radius_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Padding",
                     content=padding_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Icons",
                     content=icons_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Colors V1",
                     content=colors1_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Colors V2",
                     content=colors2_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Alignment",
                     content=alignment_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Shape",
                     content=shape_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Border",
                     content=border_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Linear Gradient",
                     content=linear_gradient_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Radial Gradient",
                     content=radial_gradient_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Sweep Gradient",
                     content=sweep_gradient_content
                 ),
-                Tab(
+                ft.Tab(
                     text="Shader Mask",
                     content=shader_mask_content
                 ),
             ]
         ),
-        Text(
+        ft.Text(
             "Made with ❤ by @ndonkoHenri aka TheEthicalBoy!",
-            style=TextThemeStyle.LABEL_SMALL,
-            weight=FontWeight.BOLD,
+            style=ft.TextThemeStyle.LABEL_SMALL,
+            weight=ft.FontWeight.BOLD,
             italic=True,
-            color=colors.BLUE_900,
+            color=ft.colors.BLUE_900,
         )
     )
 
 
-flet.app(target=main, route_url_strategy="path")
+ft.app(
+    target=main,
+    # route_url_strategy="path",
+    # port=8080,
+    # host="0.0.0.0"
+    view=ft.WEB_BROWSER
+)
