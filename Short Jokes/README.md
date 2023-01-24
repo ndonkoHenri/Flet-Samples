@@ -1,7 +1,6 @@
 # Short Jokes
 
-
-<!-- I deployed an online version of this application [here](https://short-jokes.fly.dev). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc). -->
+I deployed a live version of this application [here](https://short-jokes.henrindonko.repl.co/). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc). -->
 
 ![short jokes GIF](https://user-images.githubusercontent.com/98978078/213294369-634e2d21-c4f1-4933-b021-9c017489946a.gif)
 
