@@ -50,7 +50,7 @@ def main(page: ft.Page):
         # page.dialog.open = True
         # page.update()
         page.show_snack_bar(
-            ft.SnackBar(ft.Text(f"Humm, seems like an error suddenly occurred! Please try again."), open=True),
+            ft.SnackBar(ft.Text("Humm, seems like an error suddenly occurred! Please try again."), open=True),
         )
 
     page.on_error = on_error
@@ -122,8 +122,7 @@ def main(page: ft.Page):
 
     def change_theme(e):
         """
-        When the button(to change theme) is clicked, the progress bar is made visible, the theme is changed,
-        the progress bar is made invisible, and the page is updated
+        When the button(to change theme) is clicked, the theme is changed, and the page is updated.
 
         :param e: The event that triggered the function
         """
@@ -252,7 +251,7 @@ col 3 is|right-aligned|3
                         [
                             page.md
                         ],
-                        scroll="hidden"
+                        scroll=ft.ScrollMode.HIDDEN
                     ),
                     expand=True,
                     alignment=ft.alignment.top_left,
@@ -263,8 +262,8 @@ col 3 is|right-aligned|3
         ),
         ft.Text(
             "Made with ❤ by @ndonkoHenri aka TheEthicalBoy!",
-            style="labelSmall",
-            weight="bold",
+            style=ft.TextThemeStyle.LABEL_SMALL,
+            weight=ft.FontWeight.BOLD,
             italic=True,
             color=ft.colors.BLUE_900,
         )
