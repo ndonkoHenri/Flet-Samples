@@ -145,7 +145,7 @@ def main(page: ft.Page):
 
 ft.app(
     target=main,
-    # route_url_strategy="path",
+    route_url_strategy="path",
     # port=8080,
     # host="0.0.0.0"
     view=ft.WEB_BROWSER
