@@ -3,6 +3,8 @@ import flet as ft
 import pyqrcode
 
 
+# todo: add filepicker for image save on desktop
+
 def main(page: ft.Page):
     page.title = "QRcode Generator"
     page.theme_mode = "light"
