@@ -5,7 +5,7 @@ I deployed an online version of this application [here](https://random-image-gen
 [//]: # (![image]&#40;https://user-images.githubusercontent.com/98978078/211143358-57a220f3-5928-482e-925d-2c94cd1ffd62.png&#41;)
 
 ### How to build this project?
-I wrote an article on Medium explaining step by step, how I built this application. Check it out at here.
+I wrote an article on Medium explaining step by step, how I built this application. Check it out at [here](https://ndonkohenri.medium.com/building-a-random-image-generator-flutter-app-with-the-flet-python-framework-ecfe8b5daaf8).
 
 ### Where are the images from?
 All the images you will see while using this app are served by [picsum.photos](https://picsum.photos).
