@@ -14,7 +14,7 @@
 
 - StartUp Name Generator Clone - _not yet deployed_ 😵‍
 
-- Random Image Viewer - [Online Demo](https://random-image-generator.henrindonko.repl.co/) | [Blog Post]()
+- Random Image Viewer - [Online Demo](https://random-image-gen-post.henrindonko.repl.co/) | [Blog Post](https://ndonkohenri.medium.com/building-a-random-image-generator-flutter-app-with-the-flet-python-framework-ecfe8b5daaf8)
 
 [//]: # (- [Online Demo]&#40;https://startup-name-generator.henrindonko.repl.co&#41;)
 
