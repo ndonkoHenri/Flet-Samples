@@ -1,6 +1,6 @@
 # Random Image Viewer/Generator
 
-I deployed an online version of this application [here](https://random-image-gen-post.henrindonko.repl.co). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc).
+I deployed an online version of this application [here](https://random-image-generator.henrindonko.repl.co). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc).
 
 [//]: # (![image]&#40;https://user-images.githubusercontent.com/98978078/211143358-57a220f3-5928-482e-925d-2c94cd1ffd62.png&#41;)
 
