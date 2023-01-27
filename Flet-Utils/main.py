@@ -9,6 +9,7 @@ from utils.gradient_utils import TabContentLinearGradient, TabContentSweepGradie
 from utils.shadermask_utils import TabContentShaderMask
 from utils.shape_utils import TabContentShape
 from utils.tooltip_utils import TabContentTooltip
+from utils.icon_utils import TabContentIcon
 
 
 def main(page: ft.Page):
@@ -60,10 +61,11 @@ def main(page: ft.Page):
         ),
     )
 
+    icon_content = TabContentIcon()
     tooltip_content = TabContentTooltip()
     border_radius_content = TabContentBorderRadius()
     padding_content = TabContentPadding()
-    icons_content = TabContentIcons()
+    icons_browser_content = TabContentIcons()
     colors1_content = TabContentColors1()
     colors2_content = TabContentColors2(page)
     alignment_content = TabContentAlignment()
@@ -80,6 +82,10 @@ def main(page: ft.Page):
             selected_index=2,
             tabs=[
                 ft.Tab(
+                    text="Icon",
+                    content=icon_content
+                ),
+                ft.Tab(
                     text="Tooltip",
                     content=tooltip_content
                 ),
@@ -92,8 +98,8 @@ def main(page: ft.Page):
                     content=padding_content
                 ),
                 ft.Tab(
-                    text="Icons",
-                    content=icons_content
+                    text="Icons Browser",
+                    content=icons_browser_content
                 ),
                 ft.Tab(
                     text="Colors V1",
@@ -146,7 +152,8 @@ def main(page: ft.Page):
 ft.app(
     target=main,
     route_url_strategy="path",
+    assets_dir="assets",
     # port=8080,
     # host="0.0.0.0"
-    view=ft.WEB_BROWSER
+    # view=ft.WEB_BROWSER
 )
