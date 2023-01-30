@@ -1,6 +1,3 @@
-# from flet import (colors, icons, padding, border, UserControl, SnackBar, Text, Alignment, Row,
-#                   FilledButton, TextField, Container, Column,
-#                   Ref, FilledTonalButton, Divider, KeyboardType)
 import math
 import flet as ft
 from flet import *
@@ -266,8 +263,6 @@ class TabContentTooltip(UserControl):
         )
 
     def build(self):
-
-        # a row containing all the fields created above
         all_fields = Row(
             controls=[
                 Row(
@@ -360,7 +355,7 @@ class TabContentTooltip(UserControl):
 
     def update_tooltip(self, e: ControlEvent):
         """
-        It updates the border radius of the container object.
+        It updates the tooltip object.
         :param e: The event object
         """
         self.wait_duration, self.show_duration, self.height, self.vertical_offset = (
