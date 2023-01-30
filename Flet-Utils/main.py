@@ -4,7 +4,7 @@ from utils.alignment_utils import TabContentAlignment
 from utils.border_utils import TabContentBorder
 from utils.border_radius_utils import TabContentBorderRadius
 from utils.colors_utils import TabContentColors1, TabContentColors2
-from utils.icons_utils import TabContentIcons
+from utils.icons_browser_utils import TabContentIcons
 from utils.gradient_utils import TabContentLinearGradient, TabContentSweepGradient, TabContentRadialGradient
 from utils.shadermask_utils import TabContentShaderMask
 from utils.shape_utils import TabContentShape
