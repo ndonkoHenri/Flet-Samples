@@ -6,7 +6,8 @@ Choosing the perfect values for the Padding, Alignment, Border Radius... of our 
 I then decided to build this tool - Flet Utils - to help out all those using Flet to build applications, to efficiently and rapidly choose parameters when working with Controls.
 
 
-## Some Captures
+## Some Captures 
+Below is just an overview of the content in the web app. See the app itself for a full view.
 
 - **Alignment**
 
