@@ -1,8 +1,8 @@
 # Random Image Viewer/Generator
 
-I deployed an online version of this application [here](https://random-image-gen-post.henrindonko.repl.co). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc).
+I deployed an online version of this application [here](https://random-image-generator.henrindonko.repl.co). Feel free to try it out anytime, and drop your feedbacks (issues, improvements etc).
 
-[//]: # (![image]&#40;https://user-images.githubusercontent.com/98978078/211143358-57a220f3-5928-482e-925d-2c94cd1ffd62.png&#41;)
+![image](https://user-images.githubusercontent.com/98978078/214576043-5c9d11d0-b615-4075-87b3-ade0607e9f5f.png)
 
 ### How to build this project?
 I wrote an article on Medium explaining step by step, how I built this application. Check it out at [here](https://ndonkohenri.medium.com/building-a-random-image-generator-flutter-app-with-the-flet-python-framework-ecfe8b5daaf8).
