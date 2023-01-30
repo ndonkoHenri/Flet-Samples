@@ -1,8 +1,5 @@
-import base64
 import random
-
 import flet as ft
-import requests
 
 
 # todo: add grayscale and blur
@@ -48,36 +45,20 @@ class ImageCard(ft.Card):
                     ),
                     ft.Row(
                         [
-                            ft.TextButton(
-                                on_click=self.copy_img_url,
-                                content=ft.Row(
-                                    [
-                                        ft.Icon(ft.icons.COPY, color=ft.colors.GREEN_ACCENT_700),
-                                        ft.Text("Copy URL", weight=ft.FontWeight.BOLD, color=ft.colors.GREEN_ACCENT_700)
-                                    ],
-                                )
+                            ft.IconButton(
+                                icon=ft.icons.COPY, on_click=self.copy_img_url,
+                                icon_color=ft.colors.BLUE, tooltip="Copy URL"
                             ),
-                            ft.TextButton(
-                                on_click=self.launch_img_url,
-                                content=ft.Row(
-                                    [
-                                        ft.Icon(ft.icons.DOWNLOAD, color=ft.colors.GREEN_ACCENT_700),
-                                        ft.Text("Download", weight=ft.FontWeight.BOLD, color=ft.colors.GREEN_ACCENT_700)
-                                    ],
-                                )
+                            ft.IconButton(
+                                icon=ft.icons.DOWNLOAD, on_click=self.launch_img_url,
+                                icon_color=ft.colors.GREEN, tooltip="Download image"
                             ),
-                            ft.TextButton(
-                                on_click=self.delete_img_card,
-                                content=ft.Row(
-                                    [
-                                        ft.Icon(ft.icons.DELETE, color=ft.colors.RED_ACCENT_700),
-                                        ft.Text("Delete", color=ft.colors.RED_ACCENT_700)
-                                    ],
-                                ),
+                            ft.IconButton(
+                                icon=ft.icons.DELETE, on_click=self.delete_img_card,
+                                icon_color=ft.colors.RED, tooltip="Delete card"
                             ),
                         ],
-                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                        wrap=True
+                        alignment=ft.MainAxisAlignment.SPACE_EVENLY
                     ),
                 ],
             ),
@@ -118,18 +99,3 @@ class ImageCard(ft.Card):
         self.elevation = self.HOVERED_ELEVATION if self.elevation == self.NORMAL_ELEVATION else self.NORMAL_ELEVATION
         self.update()
 
-
-# not used
-def get_root_url(base_url: str):
-    """
-    Takes a base url as an argument, makes a request to the server to get the image and
-    returns the specific/precise url of this image.
-
-    :param base_url: the url of the image you want to download
-    :type base_url: str
-    :return: The specific url of the image
-    """
-    r = requests.get(base_url)
-    specific_image_url = r.url
-    # print(base_url, specific_image_url)
-    return specific_image_url

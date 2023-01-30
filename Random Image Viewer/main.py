@@ -4,7 +4,7 @@ from utils import ImageCard
 
 def main(page: ft.Page):
     # little configurations
-    page.title = "Random Image Viewer"
+    page.title = "Random Images"
     page.horizontal_alignment = "center"  # center the controls in the page - just for a beautiful UI
     page.theme_mode = "light"
     page.img_id_counter = 1
@@ -99,15 +99,9 @@ def main(page: ft.Page):
 
     page.images_row = ft.ResponsiveRow([ImageCard(page.img_id_counter)])
 
-    img_gen_btn = ft.FilledButton(
+    img_gen_btn = ft.ElevatedButton(
         text="Generate a Random Image",
-        on_click=generate_image,
-        content=ft.Row(
-            [
-                ft.Icon(ft.icons.RESTART_ALT),
-                ft.Text("Generate a Random Image!", font_family="SpaceGrotesk", weight=ft.FontWeight.BOLD)
-            ]
-        )
+        on_click=generate_image
     )
 
     page.add(
