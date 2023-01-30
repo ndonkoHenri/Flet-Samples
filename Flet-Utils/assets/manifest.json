@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0175C2",
-  "description": "A collection of tools for Flet developers.",
+  "description": "A collection of utility tools for Flet developers.",
   "orientation": "natural",
   "prefer_related_applications": false,
   "icons": [
