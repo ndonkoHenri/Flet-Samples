@@ -26,11 +26,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-/Markdown Editor/Dockerfile
-/Markdown Editor/fly.toml
-/Flet-Utils/fly.toml
-/Flet-Utils/Dockerfile
-/Flet-Utils/appveyor.yml
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
