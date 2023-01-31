@@ -52,7 +52,7 @@ class TabContentShaderMask(UserControl):
         # text field for gradient property of the ShaderMask object
         self.field_shader = TextField(
             label="shader",
-            value="LinearGradient(begin=alignment.top_center, end=alignment.bottom_center, colors=[colors.BLACK,"
+            value="LinearGradient(begin=alignment.top_center, end=alignment.bottom_center, colors=[colors.BLUE_100,"
                   "colors.TRANSPARENT], stops=[0.5, 1.0])",
             on_submit=self.update_mask,
             keyboard_type=KeyboardType.TEXT,
