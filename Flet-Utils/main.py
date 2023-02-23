@@ -4,12 +4,19 @@ from utils.alignment_utils import TabContentAlignment
 from utils.border_utils import TabContentBorder
 from utils.border_radius_utils import TabContentBorderRadius
 from utils.colors_utils import TabContentColors1, TabContentColors2
-from utils.icons_browser_utils import TabContentIcons
+from utils.icons_browser_utils import TabContentIconsBrowser
 from utils.gradient_utils import TabContentLinearGradient, TabContentSweepGradient, TabContentRadialGradient
 from utils.shadermask_utils import TabContentShaderMask
 from utils.shape_utils import TabContentShape
 from utils.tooltip_utils import TabContentTooltip
 from utils.icon_utils import TabContentIcon
+from utils.progress_ring_utils import TabContentProgressRing
+from utils.progress_bar_utils import TabContentProgressBar
+from utils.divider_utils import TabContentDivider
+from utils.vertical_divider_utils import TabContentVerticalDivider
+from utils.circle_avatar_utils import TabContentCircleAvatar
+from utils.shadow_utils import TabContentShadow
+from utils.blur_utils import TabContentBlur
 
 
 def main(page: ft.Page):
@@ -17,15 +24,16 @@ def main(page: ft.Page):
     page.theme_mode = "light"
     # page.window_always_on_top = True
     page.vertical_alignment = "start"
+
     # set the width and height of the window.
-    page.window_width = 572
-    page.window_height = 720
+    page.window_width = 640
+    page.window_height = 750
 
     # page.horizontal_alignment = "center"
 
     def change_theme(e):
         """
-        Changes the app's theme_mode, from dark to light or light to dark. A splash(progress bar) is also shown.
+        Changes the app's theme_mode, from dark to light or light to dark.
 
         :param e: The event that triggered the function
         :type e: ControlEvent
@@ -63,13 +71,20 @@ def main(page: ft.Page):
 
     icon_content = TabContentIcon()
     tooltip_content = TabContentTooltip()
+    progress_ring_content = TabContentProgressRing()
+    progress_bar_content = TabContentProgressBar()
+    divider_content = TabContentDivider()
+    vertical_divider_content = TabContentVerticalDivider()
+    circle_avatar_content = TabContentCircleAvatar()
     border_radius_content = TabContentBorderRadius()
     padding_content = TabContentPadding()
-    icons_browser_content = TabContentIcons()
+    icons_browser_content = TabContentIconsBrowser()
     colors1_content = TabContentColors1()
     colors2_content = TabContentColors2(page)
     alignment_content = TabContentAlignment()
     shape_content = TabContentShape()
+    shadow_content = TabContentShadow()
+    blur_content = TabContentBlur()
     border_content = TabContentBorder()
     linear_gradient_content = TabContentLinearGradient()
     radial_gradient_content = TabContentRadialGradient()
@@ -79,7 +94,7 @@ def main(page: ft.Page):
     page.add(
         ft.Tabs(
             expand=True,
-            selected_index=2,
+            selected_index=0,
             tabs=[
                 ft.Tab(
                     text="Icon",
@@ -90,7 +105,35 @@ def main(page: ft.Page):
                     content=tooltip_content
                 ),
                 ft.Tab(
-                    text="Border Radius",
+                    text="ProgressRing",
+                    content=progress_ring_content
+                ),
+                ft.Tab(
+                    text="ProgressBar",
+                    content=progress_bar_content
+                ),
+                ft.Tab(
+                    text="Divider",
+                    content=divider_content
+                ),
+                ft.Tab(
+                    text="VerticalDivider",
+                    content=vertical_divider_content
+                ),
+                ft.Tab(
+                    text="CircleAvatar",
+                    content=circle_avatar_content
+                ),
+                ft.Tab(
+                    text="Shadow",
+                    content=shadow_content
+                ),
+                ft.Tab(
+                    text="Blur",
+                    content=blur_content
+                ),
+                ft.Tab(
+                    text="BorderRadius",
                     content=border_radius_content
                 ),
                 ft.Tab(
@@ -153,7 +196,5 @@ ft.app(
     target=main,
     route_url_strategy="path",
     assets_dir="assets",
-    # port=8080,
-    # host="0.0.0.0"
-    # view=ft.WEB_BROWSER
+    view=ft.WEB_BROWSER
 )
