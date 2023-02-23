@@ -1,47 +1,47 @@
 # import all the controls: if the shader mask requires controls which are not imported, an error is raised
 from flet import *
-from flet import colors, icons, border_radius
+import flet as ft
 
 
 # the content of the ShaderMask tab
-class TabContentShaderMask(UserControl):
+class TabContentShaderMask(ft.UserControl):
     def __init__(self):
         super().__init__()
-        self.shader_mask_obj = Ref[ShaderMask]()
+        self.shader_mask_obj = ft.Ref[ft.ShaderMask]()
 
         # dropdown values for the blend_mode parameter
-        self.bm_dropdown = Dropdown(
+        self.bm_dropdown = ft.Dropdown(
             options=[
-                dropdown.Option("modulate"),
-                dropdown.Option("clear"),
-                dropdown.Option("color"),
-                dropdown.Option("colorBurn"),
-                dropdown.Option("colorDodge"),
-                dropdown.Option("darken"),
-                dropdown.Option("difference"),
-                dropdown.Option("dst"),
-                dropdown.Option("dstATop"),
-                dropdown.Option("dstIn"),
-                dropdown.Option("dstOut"),
-                dropdown.Option("dstOver"),
-                dropdown.Option("exclusion"),
-                dropdown.Option("hardLight"),
-                dropdown.Option("hue"),
-                dropdown.Option("lighten"),
-                dropdown.Option("luminosity"),
-                dropdown.Option("multiply"),
-                dropdown.Option("overlay"),
-                dropdown.Option("plus"),
-                dropdown.Option("saturation"),
-                dropdown.Option("screen"),
-                dropdown.Option("softLight"),
-                dropdown.Option("src"),
-                dropdown.Option("srcATop"),
-                dropdown.Option("srcIn"),
-                dropdown.Option("srcOut"),
-                dropdown.Option("srcOver"),
-                dropdown.Option("values"),
-                dropdown.Option("xor"),
+                ft.dropdown.Option("modulate"),
+                ft.dropdown.Option("clear"),
+                ft.dropdown.Option("color"),
+                ft.dropdown.Option("colorBurn"),
+                ft.dropdown.Option("colorDodge"),
+                ft.dropdown.Option("darken"),
+                ft.dropdown.Option("difference"),
+                ft.dropdown.Option("dst"),
+                ft.dropdown.Option("dstATop"),
+                ft.dropdown.Option("dstIn"),
+                ft.dropdown.Option("dstOut"),
+                ft.dropdown.Option("dstOver"),
+                ft.dropdown.Option("exclusion"),
+                ft.dropdown.Option("hardLight"),
+                ft.dropdown.Option("hue"),
+                ft.dropdown.Option("lighten"),
+                ft.dropdown.Option("luminosity"),
+                ft.dropdown.Option("multiply"),
+                ft.dropdown.Option("overlay"),
+                ft.dropdown.Option("plus"),
+                ft.dropdown.Option("saturation"),
+                ft.dropdown.Option("screen"),
+                ft.dropdown.Option("softLight"),
+                ft.dropdown.Option("src"),
+                ft.dropdown.Option("srcATop"),
+                ft.dropdown.Option("srcIn"),
+                ft.dropdown.Option("srcOut"),
+                ft.dropdown.Option("srcOver"),
+                ft.dropdown.Option("values"),
+                ft.dropdown.Option("xor"),
             ],
             value="modulate",
             on_change=self.update_mask,
@@ -50,51 +50,51 @@ class TabContentShaderMask(UserControl):
         )
 
         # text field for gradient property of the ShaderMask object
-        self.field_shader = TextField(
+        self.field_shader = ft.TextField(
             label="shader",
             value="LinearGradient(begin=alignment.top_center, end=alignment.bottom_center, colors=[colors.BLUE_100,"
                   "colors.TRANSPARENT], stops=[0.5, 1.0])",
             on_submit=self.update_mask,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             on_blur=self.update_mask,
             hint_text="LinearGradient(.....)",
             helper_text="Linear/Radial/Sweep Gradient object"
         )
 
         # text field for the border radius property of the ShaderMask object
-        self.field_border_radius = TextField(
+        self.field_border_radius = ft.TextField(
             label="border radius",
             value="border_radius.all(10)",
             on_submit=self.update_mask,
             on_blur=self.update_mask,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             hint_text="5,10,2,3",
             helper_text="BorderRadius object or (left, top, right, bottom)"
         )
 
         # text field for content property of the ShaderMask object
-        self.field_content = TextField(
+        self.field_content = ft.TextField(
             label="content",
             value="Image(src='https://picsum.photos/100/200?2')",
             on_submit=self.update_mask,
             on_blur=self.update_mask,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             helper_text="A control for the content",
             hint_text="Image(src='https://picsum.photos/100/200?2')",
         )
 
         self.border_radius = 10
 
-        self.shader = LinearGradient(
-            begin=alignment.top_center,
-            end=alignment.bottom_center,
+        self.shader = ft.LinearGradient(
+            begin=ft.alignment.top_center,
+            end=ft.alignment.bottom_center,
             colors=[colors.BLACK, colors.TRANSPARENT],
             stops=[0.5, 1.0],
         )
         self.blend_mode = "dstIn"
-        self.content = Image(src="https://picsum.photos/100/200?2")
+        self.content = ft.Image(src="https://picsum.photos/100/200?2")
 
-    def update_mask(self, e: ControlEvent):
+    def update_mask(self, e: ft.ControlEvent):
         """
         It updates the gradient of the container object.
 
@@ -111,19 +111,19 @@ class TabContentShaderMask(UserControl):
         except Exception as x:
             print(f"BorderRadius Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text(
+                ft.SnackBar(
+                    ft.Text(
                         "ERROR: `border_radius` must be an BorderRadius object or in the form (left, top, right, "
                         "bottom). Please check your input."),
                     open=True)
             )
             return
         else:
-            if not isinstance(b_radius, BorderRadius) and \
+            if not isinstance(b_radius, ft.BorderRadius) and \
                     not isinstance(b_radius, tuple):
                 e.page.show_snack_bar(
-                    SnackBar(
-                        Text(
+                    ft.SnackBar(
+                        ft.Text(
                             "ERROR: `border_radius` must be an BorderRadius object or in the form (left, top, "
                             "right, bottom). This could be gotten from the BorderRadius Tab here."
                         ),
@@ -138,14 +138,14 @@ class TabContentShaderMask(UserControl):
         # shader
         try:
             shader = eval(shader)
-            if shader is not None and not isinstance(shader, (LinearGradient, RadialGradient, SweepGradient)):
+            if shader is not None and not isinstance(shader, (ft.LinearGradient, ft.RadialGradient, ft.SweepGradient)):
                 raise ValueError("Wrong Value")
         except Exception as x:
             print(f"Shader Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text("ERROR: `shader` must be a Gradient(LinearGradient,RadialGradient,SweepGradient) "
-                         "object. Please check your input."),
+                ft.SnackBar(
+                    ft.Text("ERROR: `shader` must be a Gradient(LinearGradient,RadialGradient,SweepGradient) "
+                            "object. Please check your input."),
                     open=True)
             )
             return
@@ -157,8 +157,8 @@ class TabContentShaderMask(UserControl):
         except Exception as x:
             print(f"Content Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text(
+                ft.SnackBar(
+                    ft.Text(
                         "ERROR: `content` must be a valid Control object. Please check your input."),
                     open=True))
             return
@@ -167,9 +167,9 @@ class TabContentShaderMask(UserControl):
         self.border_radius = self.shader_mask_obj.current.border_radius = b_radius
         self.shader = self.shader_mask_obj.current.shader = shader
         self.update()
-        e.page.show_snack_bar(SnackBar(Text("Updated ShaderMask!"), open=True))
+        e.page.show_snack_bar(ft.SnackBar(ft.Text("Updated ShaderMask!"), open=True))
 
-    def copy_to_clipboard(self, e: ControlEvent):
+    def copy_to_clipboard(self, e: ft.ControlEvent):
         """
         It copies the gradient of the container to the clipboard.
 
@@ -177,28 +177,28 @@ class TabContentShaderMask(UserControl):
         """
         e.page.set_clipboard(
             f"ShaderMask(content={self.field_content.value.strip()}, blend_mode={self.blend_mode}, shader={self.shader}, border_radius={self.border_radius})")
-        e.page.show_snack_bar(SnackBar(Text(
+        e.page.show_snack_bar(ft.SnackBar(ft.Text(
             f"Copied: ShaderMask(content={self.field_content.value.strip()}, blend_mode={self.blend_mode}, shader={self.shader}, border_radius={self.border_radius})"),
             open=True))
 
     def build(self):
 
-        return Column(
+        return ft.Column(
             [
                 self.field_content,
                 self.field_shader,
-                Row(
+                ft.Row(
                     [self.field_border_radius, self.bm_dropdown],
-                    alignment=MainAxisAlignment.CENTER
+                    alignment=ft.MainAxisAlignment.CENTER
                 ),
-                Row(
+                ft.Row(
                     [
-                        ShaderMask(
-                            Image(src="https://picsum.photos/100/200?2"),
-                            blend_mode="dstIn",
-                            shader=LinearGradient(
-                                begin=alignment.top_center,
-                                end=alignment.bottom_center,
+                        ft.ShaderMask(
+                            ft.Image(src="https://picsum.photos/100/200?2"),
+                            blend_mode=ft.BlendMode.DST_IN,
+                            shader=ft.LinearGradient(
+                                begin=ft.alignment.top_center,
+                                end=ft.alignment.bottom_center,
                                 colors=[colors.BLACK, colors.TRANSPARENT],
                                 stops=[0.5, 1.0],
                             ),
@@ -206,23 +206,31 @@ class TabContentShaderMask(UserControl):
                             ref=self.shader_mask_obj
                         )
                     ],
-                    alignment=MainAxisAlignment.CENTER),
-                Row(
+                    alignment=ft.MainAxisAlignment.CENTER),
+                ft.Row(
                     [
-                        FilledButton(
+                        ft.FilledButton(
                             "Copy Value to Clipboard",
                             icon=icons.COPY,
                             on_click=self.copy_to_clipboard,
                         ),
-                        FilledTonalButton(
+                        ft.FilledTonalButton(
                             "Go to Docs",
                             icon=icons.DATASET_LINKED_OUTLINED,
                             on_click=lambda e: e.page.launch_url("https://flet.dev/docs/controls/shadermask")
                         )
                     ],
-                    alignment=MainAxisAlignment.CENTER,
+                    alignment=ft.MainAxisAlignment.CENTER,
                 ),
             ],
-            alignment=MainAxisAlignment.CENTER,
-            scroll=ScrollMode.HIDDEN,
+            alignment=ft.MainAxisAlignment.CENTER,
+            scroll=ft.ScrollMode.HIDDEN,
         )
+
+
+if __name__ == "__main__":
+    def main(page: ft.Page):
+        page.add(TabContentShaderMask())
+
+
+    ft.app(main)

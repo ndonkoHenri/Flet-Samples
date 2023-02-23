@@ -5,7 +5,7 @@ from flet import border_radius, border, padding, margin, alignment
 
 
 # the content of the tooltip tab
-class TabContentTooltip(UserControl):
+class TabContentTooltip(ft.UserControl):
 
     def __init__(self):
         super().__init__()
@@ -17,29 +17,29 @@ class TabContentTooltip(UserControl):
         self.message = "This is tooltip"
         self.shape = None
         self.enable_feedback = None
-        self.content_property = Text("Hover me to see tooltip")
+        self.content_property = ft.Text("Hover me to see tooltip")
         self.margin_property = margin.all(0)
         self.padding_property = padding.all(10)
-        self.gradient_property = LinearGradient(
-                                    begin=Alignment(-1, -1),
-                                    end=Alignment(0.8, 1),
-                                    colors=[
-                                        "red",
-                                        "yellow",
-                                    ],
-                                    tile_mode=GradientTileMode.MIRROR,
-                                    rotation=math.pi / 3,
-                                )
+        self.gradient_property = ft.LinearGradient(
+            begin=ft.Alignment(-1, -1),
+            end=ft.Alignment(0.8, 1),
+            colors=[
+                "red",
+                "yellow",
+            ],
+            tile_mode=ft.GradientTileMode.MIRROR,
+            rotation=math.pi / 3,
+        )
         self.border_property = None
         self.bgcolor = None
         self.border_radius_property = border_radius.all(10)
-        self.text_style_property = TextStyle(size=20, color=colors.WHITE)
+        self.text_style_property = ft.TextStyle(size=20, color=ft.colors.WHITE)
 
-        self.container_obj = Ref[Container]()
-        self.tooltip_obj = Ref[Tooltip]()
+        self.container_obj = ft.Ref[ft.Container]()
+        self.tooltip_obj = ft.Ref[ft.Tooltip]()
 
         # text field for the width property of the Container object
-        self.container_width = TextField(
+        self.container_width = ft.TextField(
             label="Width",
             hint_text="default=200",
             value="200",
@@ -50,7 +50,7 @@ class TabContentTooltip(UserControl):
         )
 
         # text field for the height property of the Container object
-        self.container_height = TextField(
+        self.container_height = ft.TextField(
             label="Height",
             hint_text="default=200",
             value="200",
@@ -61,73 +61,73 @@ class TabContentTooltip(UserControl):
         )
 
         # text field for message property of the Tooltip object
-        self.field_message = TextField(
+        self.field_message = ft.TextField(
             label="message",
             value="This is tooltip",
             on_change=self.update_tooltip,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             expand=2
         )
 
         # text field for bgcolor property of the Tooltip object
-        self.field_bgcolor = TextField(
+        self.field_bgcolor = ft.TextField(
             label="bgcolor",
             value="",
             on_submit=self.update_tooltip,
             on_blur=self.update_tooltip,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             hint_text="colors.RED_50 or red50",
             expand=1
         )
 
         # text field for text_style property of the Tooltip object
-        self.field_text_style = TextField(
+        self.field_text_style = ft.TextField(
             label="text_style",
             value="TextStyle(size=20, color=colors.WHITE)",
             helper_text="TextStyle instance",
             on_submit=self.update_tooltip,
             on_blur=self.update_tooltip,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             expand=1
         )
 
         # text field for the border radius property of the Tooltip object
-        self.field_border_radius = TextField(
+        self.field_border_radius = ft.TextField(
             label="border radius",
             value="BorderRadius(topLeft=10, topRight=10, bottomLeft=10, bottomRight=10)",
             on_submit=self.update_tooltip,
             on_blur=self.update_tooltip,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             hint_text="5,10,2,3",
             helper_text="BorderRadius instance or (left, top, right, bottom)",
             expand=1
         )
 
         # text field for the border property of the Tooltip object
-        self.field_border = TextField(
+        self.field_border = ft.TextField(
             label="border",
             value="",
             on_submit=self.update_tooltip,
             on_blur=self.update_tooltip,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             hint_text="5,10,2,3",
             helper_text="Border instance or (left, top, right, bottom)",
             expand=1
         )
 
         # text field for gradient property of the Tooltip object
-        self.field_gradient = TextField(
+        self.field_gradient = ft.TextField(
             label="gradient",
             value="LinearGradient(begin=Alignment(-1, -1), end=Alignment(0.8, 1), colors=['red','yellow',], tile_mode=GradientTileMode.MIRROR, rotation=math.pi / 3)",
             on_submit=self.update_tooltip,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             hint_text="LinearGradient(.....)",
             helper_text="Linear, Radial or Sweep Gradient instance",
             expand=2
         )
 
         # text field for the height property of the Tooltip object
-        self.field_height = TextField(
+        self.field_height = ft.TextField(
             label="height",
             hint_text="160",
             value="",
@@ -135,41 +135,41 @@ class TabContentTooltip(UserControl):
             height=50,
             content_padding=9,
             on_change=self.update_tooltip,
-            keyboard_type=KeyboardType.NUMBER,
+            keyboard_type=ft.KeyboardType.NUMBER,
             # on_blur=update_tooltip,
         )
 
         # text field for the margin property of the Tooltip object
-        self.field_margin = TextField(
+        self.field_margin = ft.TextField(
             label="margin",
             value="margin.all(0)",
             on_submit=self.update_tooltip,
             on_blur=self.update_tooltip,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             hint_text="margin.all(10)",
             helper_text="Margin instance or (left, top, right, bottom)",
             expand=1
         )
 
         # text field for the padding property of the Tooltip object
-        self.field_padding = TextField(
+        self.field_padding = ft.TextField(
             label="padding",
             value="padding.all(10)",
             on_submit=self.update_tooltip,
             on_blur=self.update_tooltip,
-            keyboard_type=KeyboardType.TEXT,
+            keyboard_type=ft.KeyboardType.TEXT,
             hint_text="padding.symmetric(horizontal=10)",
             helper_text="Padding instance or (left, top, right, bottom)",
             expand=1
         )
 
         # text field for the show_duration property of the Tooltip object
-        self.field_show_duration = TextField(
+        self.field_show_duration = ft.TextField(
             label="show_duration",
             value="",
             on_change=self.update_tooltip,
             # on_blur=update_tooltip,
-            keyboard_type=KeyboardType.NUMBER,
+            keyboard_type=ft.KeyboardType.NUMBER,
             hint_text="2000",
             width=125,
             height=60,
@@ -177,7 +177,7 @@ class TabContentTooltip(UserControl):
         )
 
         # text field for the vertical_offset property of the Tooltip object
-        self.field_vertical_offset = TextField(
+        self.field_vertical_offset = ft.TextField(
             label="vertical_offset",
             hint_text="160",
             value="",
@@ -185,17 +185,17 @@ class TabContentTooltip(UserControl):
             height=60,
             on_change=self.update_tooltip,
             content_padding=9,
-            keyboard_type=KeyboardType.NUMBER,
+            keyboard_type=ft.KeyboardType.NUMBER,
             # on_blur=update_tooltip,
         )
 
         # text field for the wait_duration property of the Tooltip object
-        self.field_wait_duration = TextField(
+        self.field_wait_duration = ft.TextField(
             label="wait_duration",
             value="",
             on_change=self.update_tooltip,
             # on_blur=update_tooltip,
-            keyboard_type=KeyboardType.NUMBER,
+            keyboard_type=ft.KeyboardType.NUMBER,
             hint_text="1000",
             width=120,
             height=60,
@@ -203,10 +203,10 @@ class TabContentTooltip(UserControl):
         )
 
         # dropdown values for the prefer_below parameter
-        self.prefer_below_dropdown = Dropdown(
+        self.prefer_below_dropdown = ft.Dropdown(
             options=[
-                dropdown.Option("True"),
-                dropdown.Option("False"),
+                ft.dropdown.Option("True"),
+                ft.dropdown.Option("False"),
             ],
             value="True",
             on_change=self.update_tooltip,
@@ -217,10 +217,10 @@ class TabContentTooltip(UserControl):
         )
 
         # dropdown values for the shape parameter
-        self.shape_dropdown = Dropdown(
+        self.shape_dropdown = ft.Dropdown(
             options=[
-                dropdown.Option("circle"),
-                dropdown.Option("rectangle"),
+                ft.dropdown.Option("circle"),
+                ft.dropdown.Option("rectangle"),
             ],
             value="rectangle",
             on_change=self.update_tooltip,
@@ -231,10 +231,10 @@ class TabContentTooltip(UserControl):
         )
 
         # dropdown values for the enable_feedback parameter
-        self.enable_feedback_dropdown = Dropdown(
+        self.enable_feedback_dropdown = ft.Dropdown(
             options=[
-                dropdown.Option("True"),
-                dropdown.Option("False"),
+                ft.dropdown.Option("True"),
+                ft.dropdown.Option("False"),
             ],
             value="True",
             on_change=self.update_tooltip,
@@ -245,14 +245,14 @@ class TabContentTooltip(UserControl):
         )
 
         # dropdown values for the text_align parameter
-        self.text_align_dropdown = Dropdown(
+        self.text_align_dropdown = ft.Dropdown(
             options=[
-                dropdown.Option("left"),
-                dropdown.Option("right"),
-                dropdown.Option("center"),
-                dropdown.Option("justify"),
-                dropdown.Option("start"),
-                dropdown.Option("end")
+                ft.dropdown.Option("left"),
+                ft.dropdown.Option("right"),
+                ft.dropdown.Option("center"),
+                ft.dropdown.Option("justify"),
+                ft.dropdown.Option("start"),
+                ft.dropdown.Option("end")
             ],
             value="left",
             on_change=self.update_tooltip,
@@ -263,97 +263,97 @@ class TabContentTooltip(UserControl):
         )
 
     def build(self):
-        all_fields = Row(
+        all_fields = ft.Row(
             controls=[
-                Row(
+                ft.Row(
                     [self.field_message, self.field_bgcolor],
                 ),
-                Row(
+                ft.Row(
                     [self.field_border, self.field_border_radius],
                 ),
-                Row(
+                ft.Row(
                     [self.field_margin, self.field_padding],
                 ),
-                Row(
+                ft.Row(
                     [self.field_gradient, self.field_text_style],
                 ),
                 self.field_vertical_offset, self.field_show_duration, self.field_wait_duration,
                 self.text_align_dropdown,
                 self.prefer_below_dropdown, self.shape_dropdown, self.enable_feedback_dropdown
             ],
-            alignment=MainAxisAlignment.CENTER,
+            alignment=ft.MainAxisAlignment.CENTER,
             wrap=True
         )
 
-        return Column(
+        return ft.Column(
             [
-                Column(
+                ft.Column(
                     [
-                        Text("Container's Size:", weight=FontWeight.BOLD, size=21),
-                        Row(
+                        ft.Text("Container's Size:", weight=ft.FontWeight.BOLD, size=21),
+                        ft.Row(
                             [self.container_width, self.container_height],
-                            alignment=MainAxisAlignment.CENTER,
+                            alignment=ft.MainAxisAlignment.CENTER,
                         ),
-                        Divider(height=2, thickness=2),
-                        Text("Tooltip Builder:", weight=FontWeight.BOLD, size=21),
+                        ft.Divider(height=2, thickness=2),
+                        ft.Text("Tooltip Builder:", weight=ft.FontWeight.BOLD, size=21),
                         all_fields
                     ],
-                    alignment=MainAxisAlignment.CENTER
+                    alignment=ft.MainAxisAlignment.CENTER
                 ),
-                Row(
+                ft.Row(
                     [
-                        Container(
-                            Tooltip(
+                        ft.Container(
+                            ft.Tooltip(
                                 ref=self.tooltip_obj,
                                 message="This is tooltip",
-                                content=Text("Hover me to see tooltip"),
+                                content=ft.Text("Hover me to see tooltip"),
                                 padding=padding.all(10),
                                 border_radius=10,
                                 margin=margin.all(10),
-                                text_style=TextStyle(size=20, color=colors.WHITE),
-                                gradient=LinearGradient(
-                                    begin=Alignment(-1, -1),
-                                    end=Alignment(0.8, 1),
+                                text_style=ft.TextStyle(size=20, color=ft.colors.WHITE),
+                                gradient=ft.LinearGradient(
+                                    begin=ft.Alignment(-1, -1),
+                                    end=ft.Alignment(0.8, 1),
                                     colors=[
                                         'red',
                                         'yellow',
                                     ],
-                                    tile_mode=GradientTileMode.MIRROR,
+                                    tile_mode=ft.GradientTileMode.MIRROR,
                                     rotation=math.pi / 3,
                                 ),
                             ),
                             ref=self.container_obj,
-                            bgcolor=colors.RED_ACCENT_700,
+                            bgcolor=ft.colors.RED_ACCENT_700,
                             padding=padding.Padding(15, 0, 15, 0),
                             width=200,
                             height=200,
-                            alignment=Alignment(0, 0),
-                            border=border.all(0, colors.TRANSPARENT),
+                            alignment=ft.Alignment(0, 0),
+                            border=border.all(0, ft.colors.TRANSPARENT),
                         )
                     ],
-                    alignment=MainAxisAlignment.CENTER
+                    alignment=ft.MainAxisAlignment.CENTER
                 ),
-                Row(
+                ft.Row(
                     [
-                        FilledButton(
+                        ft.FilledButton(
                             "Copy Value to Clipboard",
-                            icon=icons.COPY,
+                            icon=ft.icons.COPY,
                             on_click=self.copy_to_clipboard
                         ),
-                        FilledTonalButton(
+                        ft.FilledTonalButton(
                             "Go to Docs",
-                            icon=icons.DATASET_LINKED_OUTLINED,
+                            icon=ft.icons.DATASET_LINKED_OUTLINED,
                             on_click=lambda e: e.page.launch_url("https://flet.dev/docs/controls/tooltip")
                         )
                     ],
-                    alignment=MainAxisAlignment.CENTER,
+                    alignment=ft.MainAxisAlignment.CENTER,
                 )
             ],
-            alignment=MainAxisAlignment.CENTER,
-            scroll=ScrollMode.HIDDEN
+            alignment=ft.MainAxisAlignment.CENTER,
+            scroll=ft.ScrollMode.HIDDEN
         )
 
-    def update_tooltip(self, e: ControlEvent):
+    def update_tooltip(self, e: ft.ControlEvent):
         """
         It updates the tooltip object.
         :param e: The event object
@@ -382,7 +382,7 @@ class TabContentTooltip(UserControl):
         try:
             self.border_property = eval(self.border_property)
             if self.border_property is not None and \
-                    not isinstance(self.border_property, Border) and \
+                    not isinstance(self.border_property, ft.Border) and \
                     not isinstance(self.border_property, tuple):
                 raise ValueError("Wrong Value")
             elif isinstance(self.border_property, tuple) and len(self.border_property) == 4:
@@ -391,9 +391,9 @@ class TabContentTooltip(UserControl):
         except Exception as x:
             print(f"BorderRadius Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text("ERROR: `border` must be an Border object or in the form (left, top, right, "
-                         "bottom). Please check your input."),
+                ft.SnackBar(
+                    ft.Text("ERROR: `border` must be an Border object or in the form (left, top, right, "
+                            "bottom). Please check your input."),
                     open=True)
             )
             return
@@ -402,7 +402,7 @@ class TabContentTooltip(UserControl):
         try:
             self.border_radius_property = eval(self.border_radius_property)
             if self.border_radius_property is not None and \
-                    not isinstance(self.border_radius_property, (border_radius.BorderRadius, BorderRadius)) and \
+                    not isinstance(self.border_radius_property, (border_radius.BorderRadius, ft.BorderRadius)) and \
                     not isinstance(self.border_radius_property, tuple):
                 raise ValueError("Wrong Value")
             elif isinstance(self.border_radius_property, tuple) and len(self.border_radius_property) == 4:
@@ -411,8 +411,8 @@ class TabContentTooltip(UserControl):
         except Exception as x:
             print(f"BorderRadius Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text(
+                ft.SnackBar(
+                    ft.Text(
                         "ERROR: `border_radius` must be an BorderRadius object or in the form (left, top, right, "
                         "bottom). Please check your input."),
                     open=True)
@@ -423,7 +423,7 @@ class TabContentTooltip(UserControl):
         try:
             self.margin_property = eval(self.margin_property)
             if self.margin_property is not None and \
-                    not isinstance(self.margin_property, Margin) and \
+                    not isinstance(self.margin_property, ft.Margin) and \
                     not isinstance(self.margin_property, tuple):
                 raise ValueError("Wrong Value")
             elif isinstance(self.margin_property, tuple) and len(self.margin_property) == 4:
@@ -433,8 +433,8 @@ class TabContentTooltip(UserControl):
         except Exception as x:
             print(f"Margin Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text(
+                ft.SnackBar(
+                    ft.Text(
                         "ERROR: `margin` must be an Margin object or in the form (left, top, right, "
                         "bottom). Please check your input."),
                     open=True))
@@ -444,7 +444,7 @@ class TabContentTooltip(UserControl):
         try:
             self.padding_property = eval(self.padding_property)
             if self.padding_property is not None and \
-                    not isinstance(self.padding_property, Padding) and \
+                    not isinstance(self.padding_property, ft.Padding) and \
                     not isinstance(self.padding_property, tuple):
                 raise ValueError("Wrong Value")
             elif isinstance(self.padding_property, tuple) and len(self.padding_property) == 4:
@@ -453,8 +453,8 @@ class TabContentTooltip(UserControl):
         except Exception as x:
             print(f"Padding Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text(
+                ft.SnackBar(
+                    ft.Text(
                         "ERROR: `padding` must be an Padding object or in the form (left, top, right, "
                         "bottom). Please check your input."),
                     open=True)
@@ -465,14 +465,15 @@ class TabContentTooltip(UserControl):
         try:
             self.gradient_property = eval(self.gradient_property)
             if self.gradient_property is not None and not isinstance(self.gradient_property,
-                                                                     (LinearGradient, RadialGradient, SweepGradient)):
+                                                                     (ft.LinearGradient, ft.RadialGradient,
+                                                                      ft.SweepGradient)):
                 raise ValueError("Wrong Value")
         except Exception as x:
             print(f"Gradient Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text("ERROR: `gradient` must be a Gradient(LinearGradient,RadialGradient,SweepGradient) "
-                         "object. Please check your input."),
+                ft.SnackBar(
+                    ft.Text("ERROR: `gradient` must be a Gradient(LinearGradient,RadialGradient,SweepGradient) "
+                            "object. Please check your input."),
                     open=True)
             )
             return
@@ -481,13 +482,13 @@ class TabContentTooltip(UserControl):
         try:
             self.text_style_property = eval(self.text_style_property)
             if self.text_style_property is not None and \
-                    not isinstance(self.text_style_property, TextStyle):
+                    not isinstance(self.text_style_property, ft.TextStyle):
                 raise ValueError("Wrong Value")
         except Exception as x:
             print(f"TextStyle Error: {x}")
             e.page.show_snack_bar(
-                SnackBar(
-                    Text("ERROR: `text_style` must be a TextStyle object. Please check your input."),
+                ft.SnackBar(
+                    ft.Text("ERROR: `text_style` must be a TextStyle object. Please check your input."),
                     open=True)
             )
             return
@@ -500,7 +501,7 @@ class TabContentTooltip(UserControl):
                 # Getting all the colors from flet's colors module
                 list_started = False
                 all_flet_colors = list()
-                for value in vars(colors).values():
+                for value in vars(ft.colors).values():
                     if value == "primary":
                         list_started = True
                     if list_started:
@@ -508,15 +509,10 @@ class TabContentTooltip(UserControl):
 
                 # checking if all the entered colors exist in flet
                 if self.bgcolor not in all_flet_colors:
-                    raise ValueError("Wrong Value!")
+                    raise ValueError("Entered color was not found! See the colors browser for help!")
         except Exception as x:
             print(f"Bgcolor Error: {x}")
-            e.page.show_snack_bar(
-                SnackBar(
-                    Text(
-                        "ERROR: There seems to be an error with your colors. Check the Colors V1/V2 tabs for "
-                        f"help with color-choosing.!"),
-                    open=True))
+            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}"), open=True))
             return
 
         self.tooltip_obj.current.bgcolor = self.bgcolor
@@ -528,7 +524,7 @@ class TabContentTooltip(UserControl):
         self.tooltip_obj.current.height = self.height
         self.tooltip_obj.current.vertical_offset = self.vertical_offset
         self.tooltip_obj.current.prefer_below = self.prefer_below
-        self.tooltip_obj.current.shape = BoxShape(self.shape)
+        self.tooltip_obj.current.shape = ft.BoxShape(self.shape)
         self.tooltip_obj.current.text_align = self.text_align
         self.tooltip_obj.current.border_radius = self.border_radius_property
         self.tooltip_obj.current.border = self.border_property
@@ -537,9 +533,9 @@ class TabContentTooltip(UserControl):
         self.tooltip_obj.current.gradient = self.gradient_property
 
         self.update()
-        e.page.show_snack_bar(SnackBar(Text("Updated Tooltip!"), open=True))
+        e.page.show_snack_bar(ft.SnackBar(ft.Text("Updated Tooltip!"), open=True))
 
-    def update_container_size(self, e: ControlEvent):
+    def update_container_size(self, e: ft.ControlEvent):
         """
         The function updates the container size when the width or height values are changed.
 
@@ -552,14 +548,14 @@ class TabContentTooltip(UserControl):
             self.container_obj.current.width = int(
                 self.container_width.value.strip()) if self.container_width.value.strip().isnumeric() else 160
             self.container_obj.current.update()
-            e.page.show_snack_bar(SnackBar(Text("Updated Container Size!"), open=True))
+            e.page.show_snack_bar(ft.SnackBar(ft.Text("Updated Container Size!"), open=True))
         else:
             # Show a snackbar with the error message.
             e.page.show_snack_bar(
-                SnackBar(Text("ERROR: The value(ex: non-integer) entered is not valid!"), open=True)
+                ft.SnackBar(ft.Text("ERROR: The value(ex: non-integer) entered is not valid!"), open=True)
             )
 
-    def copy_to_clipboard(self, e: ControlEvent):
+    def copy_to_clipboard(self, e: ft.ControlEvent):
         """
         It copies the tooltip object/instance to the clipboard.
 
@@ -568,5 +564,13 @@ class TabContentTooltip(UserControl):
 
         t = f"Tooltip(enable_feedback={self.enable_feedback}, height={self.height}, vertical_offset={self.vertical_offset}, margin={self.margin_property}, padding={self.padding_property}, bgcolor={self.bgcolor}, gradient={self.gradient_property}, border={self.border_property}, border_radius={self.border_radius_property}, shape=BoxShape('{self.shape}'), message='{self.message}', text_style={self.text_style_property}, text_align={self.text_align}, prefer_below={self.prefer_below}, show_duration={self.show_duration}, wait_duration={self.wait_duration})"
         e.page.set_clipboard(f"{t}")
-        e.page.show_snack_bar(SnackBar(Text(f"Copied: {t}"), open=True))
+        e.page.show_snack_bar(ft.SnackBar(ft.Text(f"Copied: {t}"), open=True))
         print(t)
+
+
+if __name__ == "__main__":
+    def main(page: ft.Page):
+        page.add(TabContentTooltip())
+
+
+    ft.app(main)

@@ -1,14 +1,9 @@
-import time
+import flet as ft
 from itertools import islice
-
-from flet import (colors, icons, UserControl, SnackBar, Text, Row, TextCapitalization,
-                  TextField, IconButton, GridView, TextButton, Container, Icon, Column,
-                  FloatingActionButton, TextAlign, FontWeight, MainAxisAlignment, KeyboardType,
-                  alignment, Tabs, Ref, ListView, Tab, CrossAxisAlignment, ControlEvent)
 
 
 # the content of the ColorV1 tab
-class TabContentColors1(UserControl):
+class TabContentColors1(ft.UserControl):
     # all this below was obtained from https://github.com/ndonkoHenri/Flet-Color-Browser
 
     def __init__(self, expand=True):
@@ -35,7 +30,7 @@ class TabContentColors1(UserControl):
         # fetch all icon constants from colors.py module and store them in a dict(colors_dict)
         colors_dict = dict()
         list_started = False
-        for key, value in vars(colors).items():
+        for key, value in vars(ft.colors).items():
             if key == "PRIMARY":
                 # 'PRIMARY' is the first color-variable (our starting point)
                 list_started = True
@@ -44,7 +39,7 @@ class TabContentColors1(UserControl):
                 colors_dict[key] = value
 
         # Creating a text field
-        search_txt = TextField(
+        search_txt = ft.TextField(
             expand=1, hint_text="Enter keyword and press search button", autofocus=True,
             on_submit=lambda e: display_colors(e.control.value), tooltip="search field", label="Color Search Field"
         )
@@ -56,15 +51,15 @@ class TabContentColors1(UserControl):
             display_colors(search_txt.value)
 
         # Creating a row with a search text field and a search button.
-        search_query = Row(
-            [search_txt, FloatingActionButton(icon=icons.SEARCH, on_click=search_click, tooltip="search")]
+        search_query = ft.Row(
+            [search_txt, ft.FloatingActionButton(icon=ft.icons.SEARCH, on_click=search_click, tooltip="search")]
         )
 
         # Creating a grid view with 10 columns and 150 pixels as the maximum extent of each column.
-        search_results = GridView(
+        search_results = ft.GridView(
             expand=1, runs_count=10, max_extent=150, spacing=5, run_spacing=5, child_aspect_ratio=1,
         )
-        status_bar = Text()
+        status_bar = ft.Text()
 
         def copy_to_clipboard(e):
             """
@@ -76,7 +71,7 @@ class TabContentColors1(UserControl):
             color_key = e.control.data
             print("Copied to clipboard:", color_key)
             self.page.set_clipboard(e.control.data)
-            self.page.show_snack_bar(SnackBar(Text(f"Copied: {color_key}"), open=True))
+            self.page.show_snack_bar(ft.SnackBar(ft.Text(f"Copied: {color_key}"), open=True))
 
         def search_colors(search_term: str):
             """
@@ -111,21 +106,21 @@ class TabContentColors1(UserControl):
                     flet_color_key = f"colors.{color_key}"
 
                     search_results.controls.append(
-                        TextButton(
-                            content=Container(
-                                content=Column(
+                        ft.TextButton(
+                            content=ft.Container(
+                                content=ft.Column(
                                     [
-                                        Icon(name=icons.RECTANGLE, size=38, color=colors_dict[color_key], ),
-                                        Text(
+                                        ft.Icon(name=ft.icons.RECTANGLE, size=40, color=colors_dict[color_key], ),
+                                        ft.Text(
                                             value=f"{colors_dict[color_key]}", size=14, width=100,
-                                            no_wrap=True, text_align=TextAlign.CENTER, color=colors_dict[color_key],
+                                            no_wrap=True, text_align=ft.TextAlign.CENTER, color=colors_dict[color_key],
                                         ),
                                     ],
                                     spacing=5,
-                                    alignment=MainAxisAlignment.CENTER,
-                                    horizontal_alignment=CrossAxisAlignment.CENTER,
+                                    alignment=ft.MainAxisAlignment.CENTER,
+                                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                 ),
-                                alignment=alignment.center,
+                                alignment=ft.alignment.center,
                             ),
                             tooltip=f"{flet_color_key}\nClick to copy to a clipboard",
                             on_click=copy_to_clipboard,
@@ -138,11 +133,11 @@ class TabContentColors1(UserControl):
             # It checks if the search results are empty, and if they are, it shows a snack bar some message
             if len(search_results.controls) == 0:
                 # if no color was found containing the user's search term
-                self.page.show_snack_bar(SnackBar(Text("No colors found"), open=True))
+                self.page.show_snack_bar(ft.SnackBar(ft.Text("No colors found"), open=True))
             search_query.disabled = False
             self.update()
 
-        return Column(
+        return ft.Column(
             [
                 search_query,
                 search_results,
@@ -153,13 +148,13 @@ class TabContentColors1(UserControl):
 
 
 # the tiles used in the ColorV2 tab
-class Tile(Container):
+class Tile(ft.Container):
 
     # all this below was obtained from https://github.com/ndonkoHenri/Flet-Color-Browser
 
     def __init__(self, tile_text, color, page):
         super().__init__()
-        self.text = Text(tile_text, text_align=TextAlign.CENTER, weight=FontWeight.BOLD, italic=True, )
+        self.text = ft.Text(tile_text, text_align=ft.TextAlign.CENTER, weight=ft.FontWeight.BOLD, italic=True, )
         self.color_text = f"colors.{tile_text}"
         self.bgcolor = color
         self.expand = True
@@ -177,7 +172,7 @@ class Tile(Container):
             """
             print("Copied to clipboard:", self.color_text)
             self.page.set_clipboard(self.color_text)
-            self.page.show_snack_bar(SnackBar(Text(f"Copied: {self.color_text}!"), open=True))
+            self.page.show_snack_bar(ft.SnackBar(ft.Text(f"Copied: {self.color_text}!"), open=True))
 
         self.on_click = click_event
 
@@ -185,7 +180,7 @@ class Tile(Container):
 
 
 # the content of the ColorV2 tab
-class TabContentColors2(UserControl):
+class TabContentColors2(ft.UserControl):
     # all this below was obtained from https://github.com/ndonkoHenri/Flet-Color-Browser
 
     def __init__(self, page):
@@ -202,21 +197,19 @@ class TabContentColors2(UserControl):
         self.page = page
 
         # Creating a reference to the Tabs object that will be created later.
-        self.displayed_tabs = Ref[Tabs]()
+        self.displayed_tabs = ft.Ref[ft.Tabs]()
 
         # A list of colors that will be used to create the tabs.
         self.original_tab_names = ['RED', "BLACK", "WHITE", 'PINK', 'PURPLE', 'DEEP_PURPLE', 'INDIGO', 'BLUE',
-                                   'LIGHT_BLUE',
-                                   'CYAN', 'TEAL', 'GREEN', 'LIGHT_GREEN', 'LIME', 'YELLOW', 'AMBER', "ORANGE",
-                                   'DEEP_ORANGE',
-                                   'BROWN', 'BLUE_GREY']
+                                   'LIGHT_BLUE', 'CYAN', 'TEAL', 'GREEN', 'LIGHT_GREEN', 'LIME', 'YELLOW',
+                                   'AMBER', "ORANGE", 'DEEP_ORANGE', 'BROWN', "GREY", 'BLUE_GREY']
 
     def build(self):
 
         # Getting all the colors from the colors' module.
         list_started = False
         all_flet_colors = list()
-        for key in vars(colors).keys():
+        for key in vars(ft.colors).keys():
             if key == "PRIMARY":
                 list_started = True
             if list_started:
@@ -236,7 +229,7 @@ class TabContentColors2(UserControl):
             found = []
             # iterate over the tab_names(list containing the tabs to be shown)
             for tab_name in tab_names:
-                tab_content = ListView()
+                tab_content = ft.ListView()
                 for color in all_flet_colors:
                     tile_bgcolor = color.lower().replace("_", "")
                     tile_content = Tile(color, tile_bgcolor, self.page)
@@ -247,12 +240,12 @@ class TabContentColors2(UserControl):
 
                 # Add a tab with the name of the color and the content of the tab is a list of tiles.
                 # Also remove underscores from the tab's name.
-                created_tabs.append(Tab(tab_name.replace("_", " "), content=tab_content, ))
+                created_tabs.append(ft.Tab(tab_name.replace("_", " "), content=tab_content, ))
 
             # Creating a tab called "OTHERS" and adding all the colors that were not added to any other tab to it.
             others = [i for i in all_flet_colors if i not in found]
-            others_content = ListView(controls=[Tile(x, x.lower().replace("_", ""), self.page) for x in others])
-            created_tabs.append(Tab("OTHERS", content=others_content))
+            others_content = ft.ListView(controls=[Tile(x, x.lower().replace("_", ""), self.page) for x in others])
+            created_tabs.append(ft.Tab("OTHERS", content=others_content))
 
             return created_tabs
 
@@ -262,13 +255,7 @@ class TabContentColors2(UserControl):
             """
             If the text in the search field is "ALL", show all tabs. If the search field is not empty, show only the
             tabs that contain the search term.
-
-            :param _: ControlEvent
-            :type _: ControlEvent
             """
-            # Making the progress bar visible.
-            self.page.splash.visible = True
-            self.page.update()
             filtered_tab_names = []
 
             if search_field.value and search_field.value.lower().strip() == "all":
@@ -281,10 +268,6 @@ class TabContentColors2(UserControl):
             if filtered_tab_names:
                 # Removing all the tabs from the Tabs object.
                 self.displayed_tabs.current.clean()
-
-                # Showing a progress bar for 1 second and then hiding it.
-                self.page.splash.visible = False
-                time.sleep(0.4)
                 self.page.update()
 
                 # Updating the tabs of the Tabs object.
@@ -292,22 +275,35 @@ class TabContentColors2(UserControl):
                 self.displayed_tabs.current.update()
                 return
 
-            # Showing a progress bar for 1 second and then hiding it.
-            self.page.splash.visible = False
-            time.sleep(1)
-            self.page.update()
-
         # creating a field which will t=help the user search for specific tabs
-        search_field = TextField(label="Search Tabs...", prefix_icon=icons.SEARCH, on_submit=filter_tabs,
-                                 border_radius=50, suffix=IconButton(icon=icons.CHECK, bgcolor=colors.INVERSE_PRIMARY,
-                                                                     icon_color=colors.ERROR, on_click=filter_tabs),
-                                 helper_text="Tip: Enter 'ALL' to show all the tabs", height=70, width=450,
-                                 keyboard_type=KeyboardType.TEXT, capitalization=TextCapitalization.CHARACTERS, )
+        search_field = ft.TextField(
+            label="Search Tabs...",
+            prefix_icon=ft.icons.SEARCH,
+            on_submit=filter_tabs,
+            border_radius=50,
+            suffix=ft.IconButton(
+                icon=ft.icons.CHECK,
+                bgcolor=ft.colors.INVERSE_PRIMARY,
+                icon_color=ft.colors.ERROR,
+                on_click=filter_tabs
+            ),
+            helper_text="Tip: Enter 'ALL' to show all the tabs", height=70, width=450,
+            keyboard_type=ft.KeyboardType.TEXT,
+            capitalization=ft.TextCapitalization.CHARACTERS,
+        )
 
-        return Column(
+        return ft.Column(
             controls=[
                 search_field,
-                Tabs(ref=self.displayed_tabs, expand=True,
-                     tabs=create_tabs(self.original_tab_names))
+                ft.Tabs(ref=self.displayed_tabs, expand=True,
+                        tabs=create_tabs(self.original_tab_names))
             ]
         )
+
+
+if __name__ == "__main__":
+    def main(page: ft.Page):
+        page.add(TabContentColors2(page))
+
+
+    ft.app(main)

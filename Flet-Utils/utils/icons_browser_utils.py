@@ -1,12 +1,9 @@
 from itertools import islice
-
-from flet import (colors, icons, UserControl, SnackBar, Text, Row,
-                  TextField, IconButton, GridView, TextButton, Container, Icon, Column,
-                  alignment, TextAlign, MainAxisAlignment, CrossAxisAlignment)
+import flet as ft
 
 
 # the content of the Icons tab
-class TabContentIcons(UserControl):
+class TabContentIconsBrowser(ft.UserControl):
     # all this below was obtained from https://github.com/flet-dev/examples/tree/main/python/apps/icons-browser
 
     def __init__(self):
@@ -27,14 +24,14 @@ class TabContentIcons(UserControl):
         # fetch all icon constants from icons.py module
         icons_list = []
         list_started = False
-        for key, value in vars(icons).items():
+        for key, value in vars(ft.icons).items():
             if key == "TEN_K":
                 list_started = True
             if list_started:
                 icons_list.append(value)
 
         # search field
-        search_txt = TextField(
+        search_txt = ft.TextField(
             expand=1,
             hint_text="Enter keyword and press search button",
             autofocus=True,
@@ -50,12 +47,12 @@ class TabContentIcons(UserControl):
             """
             display_icons(search_txt.value)
 
-        search_query = Row(
-            [search_txt, IconButton(icon=icons.SEARCH, on_click=search_click)]
+        search_query = ft.Row(
+            [search_txt, ft.IconButton(icon=ft.icons.SEARCH, on_click=search_click)]
         )
 
         # the grid in which the results will be displayed
-        search_results = GridView(
+        search_results = ft.GridView(
             expand=1,
             runs_count=10,
             max_extent=150,
@@ -63,7 +60,7 @@ class TabContentIcons(UserControl):
             run_spacing=5,
             child_aspect_ratio=1,
         )
-        status_bar = Text()
+        status_bar = ft.Text()
 
         def copy_to_clipboard(e):
             """
@@ -75,7 +72,7 @@ class TabContentIcons(UserControl):
             icon_key = e.control.data
             print("Copy to clipboard:", icon_key)
             self.page.set_clipboard(e.control.data)
-            self.page.show_snack_bar(SnackBar(Text(f"Copied: {icon_key}"), open=True))
+            self.page.show_snack_bar(ft.SnackBar(ft.Text(f"Copied: {icon_key}"), open=True))
 
         def search_icons(search_term: str):
             """
@@ -108,25 +105,25 @@ class TabContentIcons(UserControl):
                 for icon_name in batch:
                     icon_key = f"icons.{icon_name.upper()}"
                     search_results.controls.append(
-                        TextButton(
-                            content=Container(
-                                content=Column(
+                        ft.TextButton(
+                            content=ft.Container(
+                                content=ft.Column(
                                     [
-                                        Icon(name=icon_name, size=30),
-                                        Text(
+                                        ft.Icon(name=icon_name, size=35),
+                                        ft.Text(
                                             value=f"{icon_name}",
                                             size=12,
                                             width=100,
                                             no_wrap=True,
-                                            text_align=TextAlign.CENTER,
-                                            color=colors.ON_SURFACE_VARIANT,
+                                            text_align=ft.TextAlign.CENTER,
+                                            color=ft.colors.ON_SURFACE_VARIANT,
                                         ),
                                     ],
                                     spacing=5,
-                                    alignment=MainAxisAlignment.CENTER,
-                                    horizontal_alignment=CrossAxisAlignment.CENTER,
+                                    alignment=ft.MainAxisAlignment.CENTER,
+                                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                 ),
-                                alignment=alignment.center,
+                                alignment=ft.alignment.center,
                             ),
                             tooltip=f"{icon_key}\nClick to copy to a clipboard",
                             on_click=copy_to_clipboard,
@@ -138,11 +135,11 @@ class TabContentIcons(UserControl):
 
             # if there are no results, a snackbar shows up to let the user be aware
             if len(search_results.controls) == 0:
-                self.page.show_snack_bar(SnackBar(Text("No icons found"), open=True))
+                self.page.show_snack_bar(ft.SnackBar(ft.Text("No icons found"), open=True))
             search_query.disabled = False
             self.update()
 
-        return Column(
+        return ft.Column(
             [
                 search_query,
                 search_results,
@@ -150,3 +147,11 @@ class TabContentIcons(UserControl):
             ],
             expand=True,
         )
+
+
+if __name__ == "__main__":
+    def main(page: ft.Page):
+        page.add(TabContentIconsBrowser())
+
+
+    ft.app(main)
