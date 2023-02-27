@@ -2,7 +2,9 @@
 
  Showcasing applications I made with the Flet([website](https://flet.dev), [github](https://github.com/flet-dev/flet)) python framework.
 
-- Flet-Utils (Flutils) - [Online Demo](https://flutils.fly.dev/)
+_Let me please know if there is any broken link._
+
+- Flet-Utils (Flutils) - [Online Demo](https://flutils.pages.dev/)
 
 - URL Shortener - [Online Demo](https://url-shorten.fly.dev/) | [Blog Post](https://medium.com/@ndonkohenri/building-a-url-shortener-flutter-app-with-flet-python-framework-fffa1d98a53e)
 
