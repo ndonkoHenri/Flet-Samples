@@ -1,3 +1,5 @@
+import random
+
 from flet import *
 import flet as ft
 
@@ -11,10 +13,9 @@ class TabContentBlur(ft.UserControl):
         super().__init__()
         self.blur_sigma_y = None
         self.blur_sigma_x = None
-
         self.blur_tile_mode = None
 
-        self.blur_obj = ft.Ref[ft.Blur]()
+        self.blur_obj = ft.Ref[ft.Container]()
 
         # text field for the sigma x property of the Blur object
         self.field_sigma_x = ft.TextField(
@@ -63,19 +64,34 @@ class TabContentBlur(ft.UserControl):
             spacing=11,
         )
 
+        w, h = 300, 300
+
         return ft.Column(
             [
                 ft.Text("Blur Builder:", weight=ft.FontWeight.BOLD, size=21),
                 all_fields,
                 ft.Row(
                     [
-                        ft.Container(
-                            ref=self.blur_obj,
-                            bgcolor=ft.colors.AMBER,
-                            alignment=ft.alignment.center,
-                            width=150,
-                            height=150,
-                        ),
+                        ft.Stack(
+                            [
+                                ft.Container(
+                                    ref=self.blur_obj,
+                                    # bgcolor=ft.colors.AMBER,
+                                    image_src=f"https://picsum.photos/300/300?random={random.randint(1, 500)}",
+                                    alignment=ft.alignment.center,
+                                    tooltip="reload page to get a new image",
+                                    width=w,
+                                    height=h,
+                                ),
+                                ft.Container(
+                                    ref=self.blur_obj,
+                                    # bgcolor=ft.colors.AMBER,
+                                    alignment=ft.alignment.center,
+                                    width=w,
+                                    height=h,
+                                ),
+                            ]
+                        )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
                 ),
@@ -136,9 +152,7 @@ class TabContentBlur(ft.UserControl):
             e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}"), open=True))
             return
 
-        self.blur_obj.current.blur.sigma_y = self.blur_sigma_y
-        self.blur_obj.current.blur.sigma_x = self.blur_sigma_x
-        self.blur_obj.current.blur.tile_mode = self.blur_tile_mode
+        self.blur_obj.current.blur = ft.Blur(self.blur_sigma_x, self.blur_sigma_y, self.blur_tile_mode)
 
         self.update()
         e.page.show_snack_bar(ft.SnackBar(ft.Text("Updated Blur!"), open=True))
@@ -158,4 +172,4 @@ if __name__ == "__main__":
         page.add(TabContentBlur())
 
 
-    ft.app(main)
+    ft.app(main, view=ft.WEB_BROWSER)
