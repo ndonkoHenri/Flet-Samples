@@ -94,7 +94,7 @@ class TabContentDivider(ft.UserControl):
 
         return ft.Column(
             [
-                ft.Text("Divider Builder:", weight=ft.FontWeight.BOLD, size=21),
+                ft.Row([ft.Text("Divider Builder:", weight=ft.FontWeight.BOLD, size=21)]),
                 all_fields,
                 ft.Column(
                     [
@@ -141,7 +141,7 @@ class TabContentDivider(ft.UserControl):
 
             ],
             alignment=ft.MainAxisAlignment.CENTER,
-            # horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             scroll=ft.ScrollMode.HIDDEN,
             spacing=30,
             expand=True
