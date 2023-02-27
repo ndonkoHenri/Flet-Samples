@@ -122,7 +122,7 @@ class TabContentProgressRing(ft.UserControl):
         self.field_offset = ft.TextField(
             label="offset",
             value="",
-            helper_text="Optional[Offset]",
+            helper_text="Optional[Offset, tuple]",
             on_submit=self.update_ring,
             # on_blur=self.update_icon,
             keyboard_type=ft.KeyboardType.TEXT,
