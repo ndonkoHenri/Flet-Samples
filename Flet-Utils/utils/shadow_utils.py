@@ -13,17 +13,18 @@ class TabContentShadow(ft.UserControl):
         self.shadow_offset = None
         self.shadow_blur_radius = None
         self.shadow_spread_radius = None
+        self.shadow_blur_style = None
 
-        self.shadow_tile_mode = None
+        self.container_bgcolor = None
 
-        self.shadow_obj = ft.Ref[ft.BoxShadow]()
+        self.shadow_obj = ft.Ref[ft.Container]()
 
         # text field for offset property of the BoxShadow object
         self.field_offset = ft.TextField(
             label="offset",
             value="",
-            helper_text="Optional[Offset]",
-            on_change=self.update_shadow,
+            helper_text="Optional[Offset, tuple]",
+            on_submit=self.update_shadow,
             keyboard_type=ft.KeyboardType.TEXT,
             expand=1
         )
@@ -31,7 +32,7 @@ class TabContentShadow(ft.UserControl):
         # text field for color property of the BoxShadow object
         self.field_color = ft.TextField(
             label="color",
-            value="green",
+            value="",
             helper_text="Optional[str]",
             on_submit=self.update_shadow,
             keyboard_type=ft.KeyboardType.TEXT,
@@ -59,8 +60,8 @@ class TabContentShadow(ft.UserControl):
             expand=1
         )
 
-        # radio buttons for the tile_mode parameter
-        self.tile_mode_radio_group = ft.RadioGroup(
+        # radio buttons for the blur_style parameter
+        self.blur_style_radio_group = ft.RadioGroup(
             ft.Row(
                 [
                     ft.Radio(value="normal", label="normal"),
@@ -74,15 +75,26 @@ class TabContentShadow(ft.UserControl):
             on_change=self.update_shadow,
         )
 
+        # text field for bgcolor property of the shown container
+        self.field_container_bgcolor = ft.TextField(
+            label="bgcolor",
+            value="amber",
+            helper_text="Optional[str]",
+            on_submit=self.update_shadow,
+            keyboard_type=ft.KeyboardType.TEXT,
+            hint_text="colors.RED_50 or red50",
+            expand=1
+        )
+
     def build(self):
         all_fields = ft.Column(
             controls=[
                 ft.Row(
                     [self.field_spread_radius, self.field_blur_radius]
                 ),
-                self.tile_mode_radio_group,
+                self.blur_style_radio_group,
                 ft.Row(
-                    [self.field_color, self.field_offset],
+                    [self.field_color, self.field_offset, self.field_container_bgcolor],
                 ),
             ],
             alignment=ft.MainAxisAlignment.CENTER,
@@ -137,7 +149,9 @@ class TabContentShadow(ft.UserControl):
 
         self.shadow_color = self.field_color.value.strip() if self.field_color.value.strip() else None
         self.shadow_offset = self.field_offset.value.strip() if self.field_offset.value.strip() else None
-        self.shadow_tile_mode = self.tile_mode_radio_group.value
+        self.shadow_blur_style = self.blur_style_radio_group.value
+        
+        self.container_bgcolor = self.field_container_bgcolor.value.strip() if self.field_container_bgcolor.value.strip() else None
 
         # spread_radius
         try:
@@ -187,9 +201,33 @@ class TabContentShadow(ft.UserControl):
             e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}"), open=True))
             return
 
+        # container bgcolor
+        try:
+            if self.container_bgcolor is not None:
+                self.container_bgcolor = eval(
+                    self.container_bgcolor) if '.' in self.container_bgcolor else self.container_bgcolor.lower()
+
+                # Getting all the colors from flet's colors module
+                list_started = False
+                all_flet_colors = list()
+                for value in vars(ft.colors).values():
+                    if value == "primary":
+                        list_started = True
+                    if list_started:
+                        all_flet_colors.append(value)
+
+                # checking if all the entered colors exist in flet
+                if self.container_bgcolor not in all_flet_colors:
+                    raise ValueError("Entered color was not found! See the colors browser for help!")
+        except Exception as x:
+            print(f"BgColor Error: {x}")
+            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}"), open=True))
+            return
+
         # offset
         try:
-            self.shadow_offset = eval(self.shadow_offset)
+            if self.shadow_offset is not None:
+                self.shadow_offset = eval(self.shadow_offset)
             if not isinstance(self.shadow_offset, ft.Offset) \
                     and not isinstance(self.shadow_offset, tuple) \
                     and self.shadow_offset is not None:
@@ -205,14 +243,11 @@ class TabContentShadow(ft.UserControl):
                     open=True))
             return
 
-        self.shadow_obj.current.shadow.color = self.shadow_color
-        self.shadow_obj.current.shadow.offset = self.shadow_offset
-        self.shadow_obj.current.shadow.blur_radius = self.shadow_blur_radius
-        self.shadow_obj.current.shadow.spread_radius = self.shadow_spread_radius
-        self.shadow_obj.current.shadow.tile_mode = self.shadow_tile_mode
+        self.shadow_obj.current.shadow = ft.BoxShadow(self.shadow_spread_radius, self.shadow_blur_radius, self.shadow_color, self.shadow_offset, self.shadow_blur_style)
+        self.shadow_obj.current.bgcolor = self.container_bgcolor
 
         self.update()
-        e.page.show_snack_bar(ft.SnackBar(ft.Text("Updated Shadow!"), open=True))
+        e.page.show_snack_bar(ft.SnackBar(ft.Text("Updated BoxShadow!"), open=True))
 
     def copy_to_clipboard(self, e: ft.ControlEvent):
         """It copies the Shadow object/instance to the clipboard."""
