@@ -1,2 +1,1 @@
-flet>=0.4.2
-requests
+flet>=0.7.1
