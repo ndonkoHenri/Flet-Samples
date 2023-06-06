@@ -327,8 +327,7 @@ class TabContentLinearGradient(ft.UserControl):
                         ft.FilledTonalButton(
                             "Go to Docs",
                             icon=ft.icons.DATASET_LINKED_OUTLINED,
-                            on_click=lambda e: e.page.launch_url(
-                                "https://flet.dev/docs/controls/container#lineargradient")
+                            url="https://flet.dev/docs/controls/container#lineargradient"
                         )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
@@ -709,8 +708,7 @@ class TabContentRadialGradient(ft.UserControl):
                         ft.FilledTonalButton(
                             "Go to Docs",
                             icon=ft.icons.DATASET_LINKED_OUTLINED,
-                            on_click=lambda e: e.page.launch_url(
-                                "https://flet.dev/docs/controls/container#radialgradient")
+                            url="https://flet.dev/docs/controls/container#radialgradient"
                         )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
@@ -1073,8 +1071,7 @@ class TabContentSweepGradient(ft.UserControl):
                         ft.FilledTonalButton(
                             "Go to Docs",
                             icon=ft.icons.DATASET_LINKED_OUTLINED,
-                            on_click=lambda e: e.page.launch_url(
-                                "https://flet.dev/docs/controls/container#sweepgradient")
+                            url="https://flet.dev/docs/controls/container#sweepgradient"
                         )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,

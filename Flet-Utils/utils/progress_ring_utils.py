@@ -180,7 +180,7 @@ class TabContentProgressRing(ft.UserControl):
                         ft.FilledTonalButton(
                             "Go to Docs",
                             icon=ft.icons.DATASET_LINKED_OUTLINED,
-                            on_click=lambda e: e.page.launch_url("https://flet.dev/docs/controls/progressring")
+                            url="https://flet.dev/docs/controls/progressring"
                         )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,

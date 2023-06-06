@@ -40,8 +40,12 @@ class TabContentColors1(ft.UserControl):
 
         # Creating a text field
         search_txt = ft.TextField(
-            expand=1, hint_text="Enter keyword and press search button", autofocus=True,
-            on_submit=lambda e: display_colors(e.control.value), tooltip="search field", label="Color Search Field"
+            expand=1,
+            hint_text="Enter keyword and press search button",
+            autofocus=True,
+            on_submit=lambda e: display_colors(e.control.value),
+            tooltip="search field",
+            label="Color Search Field"
         )
 
         def search_click(_):
@@ -303,7 +307,7 @@ class TabContentColors2(ft.UserControl):
 
 if __name__ == "__main__":
     def main(page: ft.Page):
-        page.add(TabContentColors2(page))
+        page.add(TabContentColors1())
 
 
     ft.app(main)

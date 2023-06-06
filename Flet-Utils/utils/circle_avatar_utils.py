@@ -235,7 +235,7 @@ class TabContentCircleAvatar(ft.UserControl):
                         ft.FilledTonalButton(
                             "Go to Docs",
                             icon=ft.icons.DATASET_LINKED_OUTLINED,
-                            on_click=lambda e: e.page.launch_url("https://flet.dev/docs/controls/circleavatar")
+                            url="https://flet.dev/docs/controls/circleavatar"
                         )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,

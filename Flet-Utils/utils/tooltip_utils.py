@@ -343,7 +343,7 @@ class TabContentTooltip(ft.UserControl):
                         ft.FilledTonalButton(
                             "Go to Docs",
                             icon=ft.icons.DATASET_LINKED_OUTLINED,
-                            on_click=lambda e: e.page.launch_url("https://flet.dev/docs/controls/tooltip")
+                            url="https://flet.dev/docs/controls/tooltip"
                         )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,

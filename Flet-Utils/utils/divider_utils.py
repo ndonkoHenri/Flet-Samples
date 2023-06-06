@@ -133,7 +133,7 @@ class TabContentDivider(ft.UserControl):
                         ft.FilledTonalButton(
                             "Go to Docs",
                             icon=ft.icons.DATASET_LINKED_OUTLINED,
-                            on_click=lambda e: e.page.launch_url("https://flet.dev/docs/controls/divider/")
+                            url="https://flet.dev/docs/controls/divider/"
                         )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
