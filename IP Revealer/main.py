@@ -83,7 +83,8 @@ def main(page: ft.Page):
                             eye_container := ft.Container(
                                 content=ft.IconButton(
                                     ft.icons.REMOVE_RED_EYE,
-                                    on_click=reveal_ip
+                                    on_click=reveal_ip,
+                                    tooltip="click to reveal ip :)"
                                 ),
                                 alignment=ft.alignment.bottom_center,
                                 padding=ft.Padding(0, 7.5, 0, 0)
