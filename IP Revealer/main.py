@@ -1,3 +1,4 @@
+import time
 import flet as ft
 
 
@@ -27,6 +28,20 @@ def main(page: ft.Page):
         blur_container.visible = False
         page.update()
 
+    def copy_ip(e):
+        """
+        Copies the IP value to clipboard.
+        """
+        page.set_clipboard(page.client_ip)
+
+        copy_button.selected = True
+        page.update()
+
+        time.sleep(2)
+
+        copy_button.selected = False
+        page.update()
+
     page.add(
         ft.Container(
             content=ft.Column(
@@ -35,18 +50,34 @@ def main(page: ft.Page):
                     ft.Stack(
                         [
                             ft.Container(
-                                ft.Text(
-                                    page.client_ip if page.client_ip else "No IP found :(",
-                                    weight=ft.FontWeight.BOLD,
-                                    font_family="Stick",
-                                    size=40,
-                                    selectable=True
+                                ft.Row(
+                                    [
+                                        ft.Text(
+                                            page.client_ip if page.client_ip else "No IP found :(",
+                                            weight=ft.FontWeight.BOLD,
+                                            font_family="Stick",
+                                            size=40,
+                                            selectable=True
+                                        ),
+                                        copy_button := ft.IconButton(
+                                            ft.icons.COPY_ROUNDED,
+                                            icon_color=ft.colors.BLUE,
+                                            icon_size=15,
+                                            on_click=copy_ip,
+                                            visible=page.client_ip is not None,
+                                            selected_icon=ft.icons.CHECK_CIRCLE_ROUNDED,
+                                            selected_icon_color=ft.colors.GREEN
+                                        )
+                                    ],
+                                    spacing=0,
+                                    alignment=ft.MainAxisAlignment.CENTER,
+                                    vertical_alignment=ft.CrossAxisAlignment.END
                                 ),
-                                alignment=ft.alignment.center
+                                alignment=ft.alignment.center,
                             ),
                             blur_container := ft.Container(
-                                width=350,
-                                height=55,
+                                width=410,
+                                height=65,
                                 blur=ft.Blur(15, 15),
                             ),
                             eye_container := ft.Container(
@@ -55,9 +86,9 @@ def main(page: ft.Page):
                                     on_click=reveal_ip
                                 ),
                                 alignment=ft.alignment.bottom_center,
-                                padding=ft.Padding(0, 5, 0, 0)
+                                padding=ft.Padding(0, 7.5, 0, 0)
                             ),
-                        ]
+                        ],
                     ),
                     ft.Container(
                         content=ft.Text(
@@ -81,7 +112,7 @@ def main(page: ft.Page):
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                expand=True
+                spacing=20
             ),
             width=500,
         )
@@ -91,7 +122,7 @@ def main(page: ft.Page):
 ft.app(
     main,
     view=ft.WEB_BROWSER,
-    web_renderer="html",
+    # web_renderer="html",
     assets_dir="assets",
     # use_color_emoji=True
 )
