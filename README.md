@@ -12,7 +12,7 @@ _I use free deployment services to host my apps online, so  it may happen that s
 
 - QR Code Generator - [Online Demo](https://qrcode-gen.fly.dev/)
 
-- IP Revealer - [Online Demo](https://ip-revealer.pages.dev/)
+- IP Revealer - [Online Demo](https://ip-revealer.henrindonko.repl.co/)
 
 - Short Jokes - [Online Demo](https://short-jokes.henrindonko.repl.co/)
 
