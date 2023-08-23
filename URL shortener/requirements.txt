@@ -1,2 +1,2 @@
-flet>=0.3.2
+flet>=0.4.0
 pyshorteners>=1.0.1

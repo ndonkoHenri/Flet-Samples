@@ -42,27 +42,24 @@ class ShortLinkRow(ft.Row):
         :param value: The value to be copied to the clipboard
         """
         self.page.set_clipboard(value)
-        self.page.show_snack_bar(
-            ft.SnackBar(
-                ft.Text("Link copied to clipboard!"),
-                open=True
-            )
-        )
+        self.page.show_snack_bar(ft.SnackBar(ft.Text("Link copied to clipboard!")))
 
 
 def main(page: ft.Page):
     page.title = "URL Shortener"    # title of application/page
     page.theme_mode = "light"  # by default, page.theme_mode=None
     page.splash = ft.ProgressBar(visible=False)
-    page.horizontal_alignment = "center"  # center our page's content (remove or change at wish)
+    page.horizontal_alignment = "center"  # center our page's content
     # set the width and height of the window on desktop
     page.window_width = 522
     page.window_height = 620
     page.scroll = "hidden"
 
     # use the custom fonts in the assets folder
-    page.fonts = {"sf-simple": "/fonts/San-Francisco/SFUIDisplay-Light.ttf",
-                  "sf-bold": "/fonts/San-Francisco/SFUIDisplay-Bold.ttf"}
+    page.fonts = {
+        "sf-simple": "/fonts/San-Francisco/SFUIDisplay-Light.ttf",
+        "sf-bold": "/fonts/San-Francisco/SFUIDisplay-Bold.ttf"
+    }
     page.theme = ft.Theme(font_family="sf-simple")
 
     def change_theme(e):
@@ -104,21 +101,12 @@ def main(page: ft.Page):
                 # inform the user that an error has occurred
                 e.page.show_snack_bar(
                     ft.SnackBar(
-                        ft.Text(f"An error occurred. Please retry, or refresh the page."),
-                        open=True
-                    )
-                )
+                        ft.Text(f"An error occurred. Please retry, or refresh the page.")))
                 page.splash.visible = False
                 page.update()
 
-        else:  # if the textfield is empty (no text)
-            # inform the user
-            e.page.show_snack_bar(
-                ft.SnackBar(
-                    ft.Text("Please enter a URL in the field!"),
-                    open=True
-                )
-            )
+        else:  # inform the user if the textfield is empty (no text)
+            e.page.show_snack_bar(ft.SnackBar(ft.Text("Please enter a URL in the field!")))
 
     theme_icon_button = ft.IconButton(
         ft.icons.DARK_MODE,
@@ -127,7 +115,7 @@ def main(page: ft.Page):
         icon_size=35,
         tooltip="change theme",
         on_click=change_theme,
-        style=ft.ButtonStyle(color={"": ft.colors.BLACK, "selected": ft.colors.WHITE}, ),
+        style=ft.ButtonStyle(color={"": ft.colors.BLACK, "selected": ft.colors.WHITE}),
     )
 
     page.appbar = ft.AppBar(
@@ -142,8 +130,7 @@ def main(page: ft.Page):
             icon=ft.icons.CODE,
             icon_color=ft.colors.YELLOW_ACCENT,
             tooltip="View Code",
-            on_click=lambda e: page.launch_url(
-                "https://github.com/ndonkoHenri/Flet-Samples/tree/master/URL%20shortener")
+            on_click=lambda e: page.launch_url("https://github.com/ndonkoHenri/Flet-Samples/tree/master/URL%20shortener")
         )
     )
 
@@ -163,4 +150,4 @@ def main(page: ft.Page):
     )
 
 
-ft.app(target=main, assets_dir="assets")    # view=ft.WEB_BROWSER
+ft.app(target=main, assets_dir="assets", view=ft.WEB_BROWSER)
