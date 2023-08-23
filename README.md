@@ -20,6 +20,8 @@ _I use free deployment services to host my apps online, so  it may happen that s
 
 - StartUp Name Generator Clone - _not yet deployed_ 😵‍
 
+- Forms (Login and Registration)
+
 [//]: # (- [Online Demo]&#40;https://startup-name-generator.henrindonko.repl.co&#41;)
 
 _More are still to come..._ (feel free to suggest)
