@@ -18,7 +18,7 @@ _I use free deployment services to host my apps online, so  it may happen that s
 
 - Random Image Viewer - [Online Demo](https://random-image-generator.henrindonko.repl.co) | [Blog Post](https://ndonkohenri.medium.com/building-a-random-image-generator-flutter-app-with-the-flet-python-framework-ecfe8b5daaf8)
 
-- StartUp Name Generator Clone - _not yet deployed_ 😵‍
+- StartUp Name Generator Clone
 
 - Forms (Login and Registration)
 
