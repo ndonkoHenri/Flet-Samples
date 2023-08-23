@@ -168,7 +168,7 @@ class TabContentVerticalDivider(ft.UserControl):
                 self.vertical_divider_thickness = None
         except Exception as x:
             print(f"Thickness Error: {x}")
-            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}"), open=True))
+            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}")))
             return
 
         # width
@@ -180,7 +180,7 @@ class TabContentVerticalDivider(ft.UserControl):
                 self.vertical_divider_width = None
         except Exception as x:
             print(f"Height Error: {x}")
-            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}"), open=True))
+            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}")))
             return
 
         # color
@@ -202,7 +202,7 @@ class TabContentVerticalDivider(ft.UserControl):
                     raise ValueError("Entered color was not found! See the colors browser for help!")
         except Exception as x:
             print(f"Color Error: {x}")
-            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}"), open=True))
+            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}")))
             return
 
         # opacity
@@ -214,7 +214,7 @@ class TabContentVerticalDivider(ft.UserControl):
                 self.vertical_divider_opacity = None
         except Exception as x:
             print(f"Opacity Error: {x}")
-            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}"), open=True))
+            e.page.show_snack_bar(ft.SnackBar(ft.Text(f"ERROR: {x}")))
             return
 
         self.vertical_divider_obj.current.color = self.vertical_divider_color
@@ -227,7 +227,7 @@ class TabContentVerticalDivider(ft.UserControl):
         self.right_con_obj.current.visible = not self.containers_checkbox.value
 
         self.update()
-        e.page.show_snack_bar(ft.SnackBar(ft.Text("Updated VerticalDivider!"), open=True))
+        e.page.show_snack_bar(ft.SnackBar(ft.Text("Updated VerticalDivider!")))
 
     def copy_to_clipboard(self, e: ft.ControlEvent):
         """It copies the tooltip object/instance to the clipboard."""
@@ -240,7 +240,7 @@ class TabContentVerticalDivider(ft.UserControl):
         val = f"VerticalDivider(width={self.vertical_divider_width}{others if others else ''})"
 
         e.page.set_clipboard(val)
-        e.page.show_snack_bar(ft.SnackBar(ft.Text(f"Copied: {val}"), open=True))
+        e.page.show_snack_bar(ft.SnackBar(ft.Text(f"Copied: {val}")))
         print(val)
 
 
