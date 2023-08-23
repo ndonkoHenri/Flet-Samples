@@ -94,7 +94,7 @@ class TabContentTooltip(ft.UserControl):
         # text field for the border radius property of the Tooltip object
         self.field_border_radius = ft.TextField(
             label="border radius",
-            value="BorderRadius(topLeft=10, topRight=10, bottomLeft=10, bottomRight=10)",
+            value="BorderRadius(10, 10, 10, 10)",
             on_submit=self.update_tooltip,
             on_blur=self.update_tooltip,
             keyboard_type=ft.KeyboardType.TEXT,
