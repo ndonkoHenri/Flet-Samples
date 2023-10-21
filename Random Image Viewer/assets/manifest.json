@@ -1,11 +1,11 @@
 {
-  "name": "Short Jokes",
-  "short_name": "Short Jokes",
+  "name": "Random Image Generator",
+  "short_name": "Random Image Generator",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0175C2",
-  "description": "If you're ready for some good laughs, these short jokes will do the trick.",
+  "description": "Someone once said, 'an image is worth a thousand words'",
   "orientation": "natural",
   "prefer_related_applications": false,
   "icons": [
