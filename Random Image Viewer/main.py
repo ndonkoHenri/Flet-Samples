@@ -19,16 +19,6 @@ def main(page: ft.Page):
     page.theme = ft.Theme(font_family="JetBrainsMono")
     page.dark_theme = ft.Theme(font_family="JetBrainsMono")
 
-    def close_banner(e):
-        """Close the banner."""
-        page.banner.open = False
-        page.update()
-
-    def open_banner(e):
-        """Open the banner."""
-        page.banner.open = True
-        page.update()
-
     def change_theme(e):
         """
         When the button(to change theme) is clicked, the theme is changed, and the page is updated.
@@ -43,7 +33,7 @@ def main(page: ft.Page):
 
     def generate_image(e):
         # make sure the banner is closed
-        close_banner(None)
+        page.close_banner()
 
         img_gen_btn.disabled = True
         page.update()
@@ -53,7 +43,7 @@ def main(page: ft.Page):
             page.images_row.controls.append(ImageCard(img_id=page.img_id_counter))
         except Exception as error:
             print(error)
-            open_banner(None)
+            page.show_banner(page.banner)
 
         img_gen_btn.disabled = False
         page.update()
@@ -67,7 +57,7 @@ def main(page: ft.Page):
         ),
         actions=[
             ft.TextButton("Retry", on_click=generate_image),
-            ft.TextButton("Ignore", on_click=close_banner),
+            ft.TextButton("Ignore", on_click=lambda e: page.close_banner()),
         ],
     )
 

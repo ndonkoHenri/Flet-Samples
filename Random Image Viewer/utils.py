@@ -72,27 +72,20 @@ class ImageCard(ft.Card):
         """Opens the image in the browser, so the user downloads from there. See it as a way to avoid copyright issues."""
         self.page.launch_url(self.random_img_url)
         self.page.show_snack_bar(
-            ft.SnackBar(
-                ft.Text("Opened original Image. Download from there please.", font_family="SpaceGrotesk"),
-                open=True
-            )
+            ft.SnackBar(ft.Text("Opened original Image. Download from there please.", font_family="SpaceGrotesk"))
         )
 
     def copy_img_url(self, e):
         """Copies the url of this image to the clipboard, and then shows a snackbar to notify the user."""
         self.page.set_clipboard(self.random_img_url)
-        self.page.show_snack_bar(
-            ft.SnackBar(ft.Text("Image URL copied to clipboard."), open=True)
-        )
+        self.page.show_snack_bar(ft.SnackBar(ft.Text("Image URL copied to clipboard.")))
 
     def delete_img_card(self, e):
         """When the 'delete' btn is clicked, this card is deleted, and then shows a snackbar to notify the user."""
         self.page.images_row.controls.remove(self)
         self.update()
         self.page.update()
-        self.page.show_snack_bar(
-            ft.SnackBar(ft.Text("Deletion successful!"), open=True)
-        )
+        self.page.show_snack_bar(ft.SnackBar(ft.Text("Deletion successful!")))
 
     def hover_elevation(self, e):
         """When the card is hovered, increase the elevation and vice-versa."""
