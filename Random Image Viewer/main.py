@@ -4,7 +4,7 @@ from utils import ImageCard
 
 def main(page: ft.Page):
     # little configurations
-    page.title = "Random Images"
+    page.title = "Random Image Generator"
     page.horizontal_alignment = "center"  # center the controls in the page - just for a beautiful UI
     page.theme_mode = "light"
     page.img_id_counter = 1
